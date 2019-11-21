@@ -184,8 +184,8 @@ class FSM():
 		if self.Wait:
 			self.action = "stand"
 
-		self.action.publish(self.action)
-		self.direction.publish(self.direction)
+		self.FSM_action.publish(self.action)
+		self.FSM_direction.publish(self.direction)
 
 
 	def actioncallback(self,data):
