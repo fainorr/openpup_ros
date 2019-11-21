@@ -40,8 +40,8 @@ class servoPublisher():
 
 	def loop(self, event):
 
-		self.oldtime = self.timenow
-		self.timenow = rospy.Time.now()
+		self.oldtime = float(self.timenow)
+		self.timenow = float(rospy.Time.now())
 
 		myAngles = self.IK.JointAng(self.action, self.direction, self.timenow)
 		self.servoAng.getServoAng(myAngles)
