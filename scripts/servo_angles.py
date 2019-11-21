@@ -1,5 +1,5 @@
 
-# SERVO CONTROL NODE
+# SERVO ANGLES
 
 from __future__ import division
 import Adafruit_PCA9685
