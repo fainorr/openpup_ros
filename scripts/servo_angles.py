@@ -36,7 +36,7 @@ class servo_angles():
 		self.getServoAng([0,0,0,0,0,0,0,0,0,0,0,0])
 
 
-	def getServoAng(myAngles):
+	def getServoAng(self, myAngles):
 
 		self.angs1 = myAngles[0]
 		self.angf1 = myAngles[1]
@@ -94,7 +94,7 @@ class servo_angles():
 		pwm.set_pwm(13, 0, self.sh4_offset - int(self.sangs4))		#port 11: right back hip
 
 
-	def set_servo_pulse(channel, pulse):
+	def set_servo_pulse(self, channel, pulse):
 		pulse_length = 1000000
 		pulse_length //=60
 		print('{0}us per bit' .format (pulse_length))
