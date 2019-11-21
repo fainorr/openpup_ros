@@ -145,7 +145,7 @@ class FSM():
 		self.K = self.SRight and not self.T1
 		self.L = self.SRight and self.T1
 		self.M = self.SLeft and not self.T0
-		self.N = self.Sleft and self.T0
+		self.N = self.SLeft and self.T0
 
 		# Block 3
 
