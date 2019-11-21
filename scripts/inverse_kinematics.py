@@ -46,7 +46,7 @@ class inverse_kinematics():
 			self.z4 = z_center
 
 		if (action == "forward"):
-			leg_pace = 1.0 # pace of gait
+			leg_pace = 5.0 # pace of gait
 
 			x_center = 0.5
 			x_stride = 1
@@ -84,7 +84,7 @@ class inverse_kinematics():
 			if (self.z4) < z_center: self.z4 = z_center
 
 		elif (action == "turn"):
-			leg_pace = 1.0 # pace of gait
+			leg_pace = 5.0 # pace of gait
 
 			x_center_front = 0.5
 			x_center_back = -0.5
@@ -127,7 +127,7 @@ class inverse_kinematics():
 			if (self.z4) < z_center: self.z4 = z_center
 
 		elif (action == "swivel"):
-			leg_pace = 1.0 # pace of gait
+			leg_pace = 5.0 # pace of gait
 
 			x_center = 0.5
 			x_stride = 1
@@ -164,7 +164,7 @@ class inverse_kinematics():
 			if (self.z4) < z_center: self.z4 = z_center
 
 		elif (action == "sideways"):
-			leg_pace = 1.0 # pace of gait
+			leg_pace = 5.0 # pace of gait
 
 			x_center = -0.1
 			x_stride = 0
