@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 
 # FINITE STATE MACHINE NODE
 
@@ -158,3 +159,4 @@ if __name__ == '__main__':
 	main(sys.argv)
 
 	
+ 
