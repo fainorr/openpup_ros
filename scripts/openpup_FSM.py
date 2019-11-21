@@ -35,7 +35,7 @@ class FSM():
 		self.direction = 'left'
 
 
-	def loop(self,event):
+	def loop(self, event):
 
 		# Block 1
 
