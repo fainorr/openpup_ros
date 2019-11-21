@@ -157,6 +157,7 @@ class FSM():
 		self.SRight = self.J or self.K
 		self.SLeft = self.L or self.M
 
+
 		# Block 4
 
 		if self.Forward:
