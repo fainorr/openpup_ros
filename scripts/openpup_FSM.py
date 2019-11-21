@@ -16,14 +16,14 @@ import servo_angles
 
 class FSM():
 	def __init__(self):
-    	
+		
 		self.dT = 0.005;
 		self.timenow = time.time()
 		self.oldtime = self.timenow
 
-    	self.timenow = rospy.Time.now()
-    
-    	# set up your publishers with appropriate topic types
+		self.timenow = rospy.Time.now()
+		
+		# set up your publishers with appropriate topic types
 
 		self.FSM_action = rospy.Publisher('/action', String, self.actioncallback)
 		self.FSM_direction = rospy.Publisher('/direction', String, self.directioncallback)
