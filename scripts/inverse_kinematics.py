@@ -19,7 +19,7 @@ class inverse_kinematics():
 
 		self.find_xyz('forward','left',0)
 
-	def find_xyz(action, direction, time)
+	def find_xyz(action, direction, time):
 
 		t = time
 
@@ -204,7 +204,7 @@ class inverse_kinematics():
 			if (self.z3) < z_center: self.z3 = z_center
 			if (self.z4) < z_center: self.z4 = z_center
 
-	def JointAng(action, direction, time)
+	def JointAng(action, direction, time):
 
 		self.find_xyz(action, direction, time)
 
