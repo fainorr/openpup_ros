@@ -18,7 +18,7 @@ class servoPublisher():
 
 	def __init__(self):
 
-		rospy.init_node('servo_control')
+		rospy.init_node('servo_control_node')
 
 		self.dT = 0.005;
 		self.timenow = rospy.Time.now()
@@ -61,7 +61,7 @@ class servoPublisher():
 # main function
 
 def main(args):
-	rospy.init_node('servo_control', anonymous=True)
+	rospy.init_node('servo_control_node', anonymous=True)
 	myNode = servoPublisher()
 
 	try:
