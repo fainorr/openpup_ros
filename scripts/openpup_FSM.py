@@ -142,6 +142,15 @@ class FSM():
 		self.direction.publish(direction)
 
 
+	def actioncallback(self,data):
+
+		self.action = data.data
+
+	def directioncallback(self,data):
+
+		self.direction = data.data
+
+
 # main function
 
 def main(args):
