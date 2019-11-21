@@ -17,8 +17,6 @@ import servo_angles
 class FSM():
 	def __init__(self):
     	
-		rospy.init_node('openpup_FSM')
-
 		self.dT = 0.005;
 		self.timenow = rospy.Time.now()
 		self.oldtime = self.timenow
