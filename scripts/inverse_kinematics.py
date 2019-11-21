@@ -246,7 +246,7 @@ class inverse_kinematics():
 			else:
 				Ad = pi + arctan((z+self.ls*sin(As))/x)
 
-			d = sqrt(x**2 + (z+ls*sin(As))**2)
+			d = sqrt(x**2 + (z+self.ls*sin(As))**2)
 			Af = Ad - arccos((self.lf**2 + d**2 - self.lt**2)/(2*self.lf*d))
 			At = pi - arccos((self.lf**2 + self.lt**2 - d**2)/(2*self.lf*self.lt))
 
