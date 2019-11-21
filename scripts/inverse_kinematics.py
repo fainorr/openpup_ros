@@ -22,6 +22,28 @@ class inverse_kinematics():
 
 		t = time
 
+		if (action == "stand"):
+
+			x_center = 0.5
+			y_center = -1
+			z_center = -4
+
+			self.x1 = x_center
+			self.y1 = y_center
+			self.z1 = z_center
+
+			self.x2 = x_center
+			self.y2 = y_center
+			self.z2 = z_center
+
+			self.x3 = x_center
+			self.y3 = y_center
+			self.z3 = z_center
+
+			self.x4 = x_center
+			self.y4 = y_center
+			self.z4 = z_center
+
 		if (action == "forward"):
 			leg_pace = 80 # pace of gait
 
