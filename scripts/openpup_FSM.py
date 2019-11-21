@@ -34,13 +34,21 @@ class FSM():
 		self.action = 'stand'
 		self.direction = 'left'
 
+		self.Wait = 1
+		self.Back = 0
+		self.TRight = 0
+		self.SLeft = 0
+		self.Forward = 0
+		self.TLeft = 0
+		self.SRight = 0
+
 
 	def loop(self, event):
 
 		# Block 1
 
-		T0_EN = Wait or Back or TRight or SLeft
-		T1_EN = Forward or TLeft or SRight
+		T0_EN = self.Wait or self.Back or self.TRight or self.SLeft
+		T1_EN = self.Forward or self.TLeft or self.SRight
 
 		# --------------------TIMER_0--------------------
 		A_time0 = wait_time0 and T0_EN
@@ -86,56 +94,56 @@ class FSM():
 
 		# Block 2
 
-		A = Wait and not T0
-		B = Wait and T0
-		C = Forward and not T1
-		D = Forward and T1
-		E = Back and not T0
-		F = Back and T0
-		G = TLeft and not T1
-		H = TLeft and T1
-		I = TRight and not T0
-		J = TRight and T0
-		K = SRight and not T1
-		L = SRight and T1
-		M = SLeft and not T0
-		N = Sleft and T0
+		A = self.Wait and not T0
+		B = self.Wait and T0
+		C = self.Forward and not T1
+		D = self.Forward and T1
+		E = self.Back and not T0
+		F = self.Back and T0
+		G = self.TLeft and not T1
+		H = self.TLeft and T1
+		I = self.TRight and not T0
+		J = self.TRight and T0
+		K = self.SRight and not T1
+		L = self.SRight and T1
+		M = self.SLeft and not T0
+		N = self.Sleft and T0
 
 		# Block 3
 
-		Wait = A or N
-		Forward = B or C
-		Back = D or E
-		TLeft = F or G
-		TRight = H or I
-		SRight = J or K
-		SLeft = L or M
+		self.Wait = A or N
+		self.Forward = B or C
+		self.Back = D or E
+		self.TLeft = F or G
+		self.TRight = H or I
+		self.SRight = J or K
+		self.SLeft = L or M
 
 		# Block 4
 
-		if Forward:
+		if self.Forward:
 			action = "forward"
 
-		if Back:
+		if self.Back:
 			action = "backward"
 
-		if SLeft:
+		if self.SLeft:
 			action = "sideways"
 			direction = "left"
 
-		if SRight:
+		if self.SRight:
 			action = "sideways"
 			direction = "right"
 
-		if TLeft:
+		if self.TLeft:
 			action = "turn"
 			direction = "left"
 
-		if TRight:
+		if self.TRight:
 			action = "turn"
 			direction = "right"
 
-		if Wait:
+		if self.Wait:
 			action = "stand"
 
 		self.action.publish(action)
