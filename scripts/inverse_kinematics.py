@@ -17,7 +17,7 @@ class inverse_kinematics():
 		self.lt = 2.60 # tibia, inches
 		self.ls = 1.40 # shoulder offset, inches
 
-		self.find_xyz('forward','left',0)
+		self.find_xyz('stand', 'left', 0)
 
 	def find_xyz(action, direction, time):
 
