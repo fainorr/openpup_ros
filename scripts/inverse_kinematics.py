@@ -84,7 +84,7 @@ class inverse_kinematics():
 			if (self.z4) < z_center: self.z4 = z_center
 
 		elif (action == "turn"):
-			leg_pace = 150.0 # pace of gait
+			leg_pace = 15.0 # pace of gait
 
 			x_center_front = 0.5
 			x_center_back = -0.5
@@ -105,21 +105,21 @@ class inverse_kinematics():
 			leg3_offset = pi		# back left
 			leg4_offset = 0 		# back right
 
-			self.x1 = x_center_front + x_stride*sin(leg_pace*t - pi/2 - leg1_offset)
-			self.y1 = y_center - y_offset*sin(leg_pace*t - pi - leg1_offset)
-			self.z1 = z_center + z_lift*sin(leg_pace*t - pi/2 - leg1_offset)
+			self.x1 = x_center_front + x_stride*sin(leg_pace*self.t - pi/2 - leg1_offset)
+			self.y1 = y_center - y_offset*sin(leg_pace*self.t - pi - leg1_offset)
+			self.z1 = z_center + z_lift*sin(leg_pace*self.t - pi/2 - leg1_offset)
 
-			self.x2 = x_center_front + x_stride*sin(leg_pace*t - pi/2 - leg2_offset)
-			self.y2 = y_center + y_offset*sin(leg_pace*t - pi - leg2_offset)
-			self.z2 = z_center + z_lift*sin(leg_pace*t - pi/2 - leg2_offset)
+			self.x2 = x_center_front + x_stride*sin(leg_pace*self.t - pi/2 - leg2_offset)
+			self.y2 = y_center + y_offset*sin(leg_pace*self.t - pi - leg2_offset)
+			self.z2 = z_center + z_lift*sin(leg_pace*self.t - pi/2 - leg2_offset)
 
-			self.x3 = x_center_back + x_stride*sin(leg_pace*t - pi/2 - leg3_offset)
-			self.y3 = y_center + y_offset*sin(leg_pace*t - pi - leg3_offset)
-			self.z3 = z_center + z_lift*sin(leg_pace*t - pi/2 - leg3_offset)
+			self.x3 = x_center_back + x_stride*sin(leg_pace*self.t - pi/2 - leg3_offset)
+			self.y3 = y_center + y_offset*sin(leg_pace*self.t - pi - leg3_offset)
+			self.z3 = z_center + z_lift*sin(leg_pace*self.t - pi/2 - leg3_offset)
 
-			self.x4 = x_center_back + x_stride*sin(leg_pace*t - pi/2 - leg4_offset)
-			self.y4 = y_center - y_offset*sin(leg_pace*t - pi - leg4_offset)
-			self.z4 = z_center + z_lift*sin(leg_pace*t - pi/2 - leg4_offset)
+			self.x4 = x_center_back + x_stride*sin(leg_pace*self.t - pi/2 - leg4_offset)
+			self.y4 = y_center - y_offset*sin(leg_pace*self.t - pi - leg4_offset)
+			self.z4 = z_center + z_lift*sin(leg_pace*self.t - pi/2 - leg4_offset)
 
 			if (self.z1) < z_center: self.z1 = z_center
 			if (self.z2) < z_center: self.z2 = z_center
@@ -127,7 +127,7 @@ class inverse_kinematics():
 			if (self.z4) < z_center: self.z4 = z_center
 
 		elif (action == "swivel"):
-			leg_pace = 80.0 # pace of gait
+			leg_pace = 5.0 # pace of gait
 
 			x_center = 0.5
 			x_stride = 1
@@ -142,21 +142,21 @@ class inverse_kinematics():
 			leg3_offset = 0			# back left
 			leg4_offset = 0 		# back right
 
-			self.x1 = x_center + x_stride*sin(leg_pace*t - pi/2 - leg1_offset)
-			self.y1 = y_center - y_offset*sin(leg_pace*t - pi - leg1_offset)
-			self.z1 = z_center + z_lift*sin(leg_pace*t - pi/2 - leg1_offset)
+			self.x1 = x_center + x_stride*sin(leg_pace*self.t - pi/2 - leg1_offset)
+			self.y1 = y_center - y_offset*sin(leg_pace*self.t - pi - leg1_offset)
+			self.z1 = z_center + z_lift*sin(leg_pace*self.t - pi/2 - leg1_offset)
 
-			self.x2 = x_center + x_stride*sin(leg_pace*t - pi/2 - leg2_offset)
-			self.y2 = y_center + y_offset*sin(leg_pace*t - pi - leg2_offset)
-			self.z2 = z_center + z_lift*sin(leg_pace*t - pi/2 - leg2_offset)
+			self.x2 = x_center + x_stride*sin(leg_pace*self.t - pi/2 - leg2_offset)
+			self.y2 = y_center + y_offset*sin(leg_pace*self.t - pi - leg2_offset)
+			self.z2 = z_center + z_lift*sin(leg_pace*self.t - pi/2 - leg2_offset)
 
-			self.x3 = x_center + x_stride*sin(leg_pace*t - pi/2 - leg3_offset)
-			self.y3 = y_center + y_offset*sin(leg_pace*t - leg3_offset)
-			self.z3 = z_center + z_lift*sin(leg_pace*t - pi/2 - leg3_offset)
+			self.x3 = x_center + x_stride*sin(leg_pace*self.t - pi/2 - leg3_offset)
+			self.y3 = y_center + y_offset*sin(leg_pace*self.t - leg3_offset)
+			self.z3 = z_center + z_lift*sin(leg_pace*self.t - pi/2 - leg3_offset)
 
-			self.x4 = x_center + x_stride*sin(leg_pace*t - pi/2 -leg4_offset)
-			self.y4 = y_center - y_offset*sin(leg_pace*t - leg4_offset)
-			self.z4 = z_center + z_lift*sin(leg_pace*t - pi/2 - leg4_offset)
+			self.x4 = x_center + x_stride*sin(leg_pace*self.t - pi/2 -leg4_offset)
+			self.y4 = y_center - y_offset*sin(leg_pace*self.t - leg4_offset)
+			self.z4 = z_center + z_lift*sin(leg_pace*self.t - pi/2 - leg4_offset)
 
 			if (self.z1) < z_center: self.z1 = z_center
 			if (self.z2) < z_center: self.z2 = z_center
@@ -164,7 +164,7 @@ class inverse_kinematics():
 			if (self.z4) < z_center: self.z4 = z_center
 
 		elif (action == "sideways"):
-			leg_pace = 200.0 # pace of gait
+			leg_pace = 20.0 # pace of gait
 
 			x_center = -0.1
 			x_stride = 0
@@ -183,21 +183,21 @@ class inverse_kinematics():
 			leg3_offset = pi/2		# back left
 			leg4_offset = 3*pi/2 	# back right
 
-			self.x1 = x_center + x_stride*sin(leg_pace*t - pi/2 - leg1_offset)
-			self.y1 = y_center + y_offset*sin(leg_pace*t - pi - leg1_offset)
-			self.z1 = z_center + z_lift*sin(leg_pace*t - pi/2 - leg1_offset)
+			self.x1 = x_center + x_stride*sin(leg_pace*self.t - pi/2 - leg1_offset)
+			self.y1 = y_center + y_offset*sin(leg_pace*self.t - pi - leg1_offset)
+			self.z1 = z_center + z_lift*sin(leg_pace*self.t - pi/2 - leg1_offset)
 
-			self.x2 = x_center + x_stride*sin(leg_pace*t - pi/2 - leg2_offset)
-			self.y2 = y_center - y_offset*sin(leg_pace*t - pi - leg2_offset)
-			self.z2 = z_center + z_lift*sin(leg_pace*t - pi/2 - leg2_offset)
+			self.x2 = x_center + x_stride*sin(leg_pace*self.t - pi/2 - leg2_offset)
+			self.y2 = y_center - y_offset*sin(leg_pace*self.t - pi - leg2_offset)
+			self.z2 = z_center + z_lift*sin(leg_pace*self.t - pi/2 - leg2_offset)
 
-			self.x3 = x_center + x_stride*sin(leg_pace*t - pi/2 - leg3_offset)
-			self.y3 = y_center + y_offset*sin(leg_pace*t - pi - leg3_offset)
-			self.z3 = z_center + z_lift*sin(leg_pace*t - pi/2 - leg3_offset)
+			self.x3 = x_center + x_stride*sin(leg_pace*self.t - pi/2 - leg3_offset)
+			self.y3 = y_center + y_offset*sin(leg_pace*self.t - pi - leg3_offset)
+			self.z3 = z_center + z_lift*sin(leg_pace*self.t - pi/2 - leg3_offset)
 
-			self.x4 = x_center + x_stride*sin(leg_pace*t - pi/2 - leg4_offset)
-			self.y4 = y_center - y_offset*sin(leg_pace*t - pi - leg4_offset)
-			self.z4 = z_center + z_lift*sin(leg_pace*t - pi/2 - leg4_offset)
+			self.x4 = x_center + x_stride*sin(leg_pace*self.t - pi/2 - leg4_offset)
+			self.y4 = y_center - y_offset*sin(leg_pace*self.t - pi - leg4_offset)
+			self.z4 = z_center + z_lift*sin(leg_pace*self.t - pi/2 - leg4_offset)
 
 			if (self.z1) < z_center: self.z1 = z_center
 			if (self.z2) < z_center: self.z2 = z_center
