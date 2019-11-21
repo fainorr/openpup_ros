@@ -38,7 +38,7 @@ class servoPublisher():
 
 
 
-	def loop(self,event):
+	def loop(self, event):
 
 		self.oldtime = self.timenow
 		self.timenow = rospy.Time.now()
