@@ -18,8 +18,8 @@ class FSM():
 	def __init__(self):
     	
 		self.dT = 0.005;
-		self.timenow = rospy.Time.now()
-		self.oldtime = self.timenow
+		self.timenow = float(rospy.Time.now())
+		self.oldtime = float(self.timenow)
 
     	self.timenow = rospy.Time.now()
     
