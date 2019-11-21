@@ -19,7 +19,7 @@ class servoPublisher():
 	def __init__(self):
 
 		self.dT = 0.005;
-		self.timenow = rospy.Time.now()
+		self.timenow = time.time()
 		self.oldtime = self.timenow
 
 		self.IK = inverse_kinematics.inverse_kinematics()
