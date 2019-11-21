@@ -19,7 +19,7 @@ class inverse_kinematics():
 
 		self.find_xyz('stand', 'left', 0)
 
-	def find_xyz(action, direction, time):
+	def find_xyz(self, action, direction, time):
 
 		t = time
 
@@ -204,7 +204,7 @@ class inverse_kinematics():
 			if (self.z3) < z_center: self.z3 = z_center
 			if (self.z4) < z_center: self.z4 = z_center
 
-	def JointAng(action, direction, time):
+	def JointAng(self, action, direction, time):
 
 		self.find_xyz(action, direction, time)
 
@@ -215,7 +215,7 @@ class inverse_kinematics():
 
 		return [self.angs1, self.angf1, self.angt1, self.angs2, self.angf2, self.angt2, self.angs3, self.angf3, self.angt3, self.angs4, self.angf4, self.angt4]
 
-	def getJointAng(x, y, z, leg):
+	def getJointAng(self, x, y, z, leg):
 
 		if (y<0):
 			Adxy = arctan(z/y)
