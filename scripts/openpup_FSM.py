@@ -163,7 +163,7 @@ class FSM():
 			self.action = "forward"
 
 		if self.Back:
-			self.action = "backward"
+			self.action = "swivel"
 
 		if self.SLeft:
 			self.action = "sideways"
