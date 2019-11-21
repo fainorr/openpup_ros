@@ -18,8 +18,6 @@ class servoPublisher():
 
 	def __init__(self):
 
-		rospy.init_node('servo_control_node')
-
 		self.dT = 0.005;
 		self.timenow = rospy.Time.now()
 		self.oldtime = self.timenow
