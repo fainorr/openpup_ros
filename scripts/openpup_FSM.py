@@ -119,7 +119,7 @@ class FSM():
 		self.timing_time1 = self.A_time1 or self.D_time1
 
 		if (self.A_time1):
-			Start_time1 = time.time()
+			self.Start_time1 = time.time()
 
 		if(self.timing_time1):
 			self.delta_t1 = time.time() - self.Start_time1
@@ -149,13 +149,13 @@ class FSM():
 
 		# Block 3
 
-		self.Wait = A or N
-		self.Forward = B or C
-		self.Back = D or E
-		self.TLeft = F or G
-		self.TRight = H or I
-		self.SRight = J or K
-		self.SLeft = L or M
+		self.Wait = self.A or self.N
+		self.Forward = self.B or self.C
+		self.Back = self.D or self.E
+		self.TLeft = self.F or self.G
+		self.TRight = self.H or self.I
+		self.SRight = self.J or self.K
+		self.SLeft = self.L or self.M
 
 		# Block 4
 
