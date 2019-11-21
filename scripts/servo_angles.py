@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 
 # SERVO ANGLES
 
@@ -35,7 +36,7 @@ class servo_angles():
 		self.getServoAng([0,0,0,0,0,0,0,0,0,0,0,0])
 
 
-	def getServoAng(myAngles)
+	def getServoAng(myAngles):
 
 		self.angs1 = myAngles[0]
 		self.angf1 = myAngles[1]

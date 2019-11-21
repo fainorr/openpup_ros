@@ -7,7 +7,7 @@ import rospy
 roslib.load_manifest('openpup_ros')
 from std_msgs.msg import *
 from numpy import *
-import Time
+import time
 
 
 import inverse_kinematics
