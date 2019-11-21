@@ -51,8 +51,8 @@ class servo_angles():
 		self.angf4 = myAngles[10]
 		self.angt4 = myAngles[11]
 
-		if self.angf1[i] > 0: self.angf1[i] = self.angf1[i] - 2*pi
-		if self.angf3[i] > 0: self.angf3[i] = self.angf3[i] - 2*pi
+		if self.angf1 > 0: self.angf1 = self.angf1 - 2*pi
+		if self.angf3 > 0: self.angf3 = self.angf3 - 2*pi
 
 		# convert to servo angles
 
