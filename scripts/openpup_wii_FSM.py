@@ -17,13 +17,13 @@ import servo_angles
 
 class wii_FSM():
 	def __init__(self):
-		
+
 		self.dT = 0.005;
 		self.timenow = time.time()
 		self.oldtime = self.timenow
 
 		self.timenow = rospy.Time.now()
-		
+
 		# set up your publishers with appropriate topic types
 
 		self.wiimote = rospy.Subscriber("/joy", Joy, self.wiimotecallback)
@@ -69,27 +69,27 @@ class wii_FSM():
 		# button A
 		self.Forward = (self.Wait or self.Swivel or self.Foward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
 					and (self.joy[0] == 1) and (self.joy[5] == 0) and (self.joy[6] == 0)
-		
+
 		# buttons A and 2
 		self.SRight = (self.Wait or self.Swivel or self.Foward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
 					and (self.joy[0] == 1) and (self.joy[5] == 0) and (self.joy[6] == 1)
-		
+
 		# button 2 only
 		self.TRight = (self.Wait or self.Swivel or self.Foward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
 					and (self.joy[0] == 0) and (self.joy[5] == 0) and (self.joy[6] == 1)
-				
+
 		# buttons A and 1
 		self.SLeft = (self.Wait or self.Swivel or self.Foward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
 					and (self.joy[0] == 1) and (self.joy[5] == 1) and (self.joy[6] == 0)
-		
-		# button 1 only		
+
+		# button 1 only
 		self.TLeft = (self.Wait or self.Swivel or self.Foward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
 					and (self.joy[0] == 0) and (self.joy[5] == 1) and (self.joy[6] == 0)
-				
+
 		# button B only
 		self.Swivel = (self.Wait or self.Swivel or self.Foward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
 					and (self.joy[0] == 0) and (self.joy[5] == 0) and (self.joy[6] == 0) and (self.joy[1] == 1)
-				
+
 		# both 1 and 2 OR no buttons
 		self.Wait = (self.Wait or self.Swivel or self.Foward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
 					and (((self.joy[5] == 1) and (self.joy[6] == 1)) or \
@@ -151,5 +151,4 @@ def main(args):
 if __name__ == '__main__':
 	main(sys.argv)
 
-	
- 
+
