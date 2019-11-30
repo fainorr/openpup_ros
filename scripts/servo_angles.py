@@ -89,7 +89,7 @@ class servo_angles():
 		pwm.set_pwm(9, 0, self.tib3_offset + int(self.sangt3))		#port 9: left back tibia
 		pwm.set_pwm(10, 0, self.sh3_offset - int(self.sangs3))		#port 10: left back hip
 
-		pwm.set_pwm(12, 0, self.fem4_offset + int(self.sangf4))		#port 6: right back femur
+		pwm.set_pwm(12, 0, self.fem4_offset + int(self.sangf4))		#port 12: right back femur
 		pwm.set_pwm(7, 0, self.tib4_offset + int(self.sangt4))		#port 7: right back tibia
 		pwm.set_pwm(13, 0, self.sh4_offset - int(self.sangs4))		#port 11: right back hip
 
