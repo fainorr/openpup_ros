@@ -26,7 +26,7 @@ class wii_FSM():
 
 		# set up your publishers with appropriate topic types
 
-		self.wiimote = rospy.Subscriber("/joy", Joy, self.wiimotecallback)
+		self.joy = rospy.Subscriber("/joy", Joy, self.wiimotecallback)
 
 		self.FSM_action = rospy.Publisher('/action', String, queue_size=1)
 		self.FSM_direction = rospy.Publisher('/direction', String, queue_size=1)
