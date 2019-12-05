@@ -120,7 +120,13 @@ class wii_FSM():
 		if self.Wait:
 			self.action = "stand"
 
-		print(self.joy[6])
+		print('Wait' = self.Wait)
+		print('Swivel' = self.Swivel)
+		print('Forward' = self.Forward)
+		print('TRight' = self.TRight)
+		print('SRight' = self.SRight)
+		print('TLeft' = self.TLeft)
+		print('SLeft' = self.SLeft)
 
 		self.FSM_action.publish(self.action)
 		self.FSM_direction.publish(self.direction)
