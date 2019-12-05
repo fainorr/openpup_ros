@@ -120,6 +120,8 @@ class wii_FSM():
 		if self.Wait:
 			self.action = "stand"
 
+		print(self.joy)
+
 		self.FSM_action.publish(self.action)
 		self.FSM_direction.publish(self.direction)
 
