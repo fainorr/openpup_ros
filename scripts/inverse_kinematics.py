@@ -46,7 +46,7 @@ class inverse_kinematics():
 			self.z4 = z_center
 
 		if (action == "forward"):
-			leg_pace = 4.0 # pace of gait
+			leg_pace = 6.0 # pace of gait
 
 			x_center = 0.5
 			x_stride = 1
@@ -54,7 +54,7 @@ class inverse_kinematics():
 			y_center = -1
 			y_offset = 0
 
-			z_center = -4
+			z_center = -4.5
 			z_lift = 1
 
 			leg1_offset = 0			# front left
