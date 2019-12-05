@@ -18,7 +18,7 @@ import servo_angles
 class wii_FSM():
 	def __init__(self):
 
-		self.dT = 0.5;
+		self.dT = 0.01;
 		self.timenow = time.time()
 		self.oldtime = self.timenow
 
@@ -128,13 +128,13 @@ class wii_FSM():
 		if self.Wait:
 			self.action = "stand"
 
-		print('Wait = ', self.Wait)
-		print('Swivel = ', self.Swivel)
-		print('Forward = ', self.Forward)
-		print('TRight = ', self.TRight)
-		print('SRight = ', self.SRight)
-		print('TLeft = ', self.TLeft)
-		print('SLeft = ', self.SLeft)
+		# print('Wait = ', self.Wait)
+		# print('Swivel = ', self.Swivel)
+		# print('Forward = ', self.Forward)
+		# print('TRight = ', self.TRight)
+		# print('SRight = ', self.SRight)
+		# print('TLeft = ', self.TLeft)
+		# print('SLeft = ', self.SLeft)
 
 		self.FSM_action.publish(self.action)
 		self.FSM_direction.publish(self.direction)
