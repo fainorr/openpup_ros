@@ -67,33 +67,41 @@ class wii_FSM():
 	def loop(self, event):
 
 		# button A
-		self.Forward = (self.Wait or self.Swivel or self.Forward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
+		self.A = (self.Wait or self.Swivel or self.Forward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
 					and (self.joy[0] == 1) and (self.joy[5] == 0) and (self.joy[6] == 0)
 
 		# buttons A and 2
-		self.SRight = (self.Wait or self.Swivel or self.Forward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
+		self.B = (self.Wait or self.Swivel or self.Forward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
 					and (self.joy[0] == 1) and (self.joy[5] == 0) and (self.joy[6] == 1)
 
 		# button 2 only
-		self.TRight = (self.Wait or self.Swivel or self.Forward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
+		self.C = (self.Wait or self.Swivel or self.Forward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
 					and (self.joy[0] == 0) and (self.joy[5] == 0) and (self.joy[6] == 1)
 
 		# buttons A and 1
-		self.SLeft = (self.Wait or self.Swivel or self.Forward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
+		self.D = (self.Wait or self.Swivel or self.Forward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
 					and (self.joy[0] == 1) and (self.joy[5] == 1) and (self.joy[6] == 0)
 
 		# button 1 only
-		self.TLeft = (self.Wait or self.Swivel or self.Forward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
+		self.E = (self.Wait or self.Swivel or self.Forward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
 					and (self.joy[0] == 0) and (self.joy[5] == 1) and (self.joy[6] == 0)
 
 		# button B only
-		self.Swivel = (self.Wait or self.Swivel or self.Forward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
+		self.F = (self.Wait or self.Swivel or self.Forward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
 					and (self.joy[0] == 0) and (self.joy[5] == 0) and (self.joy[6] == 0) and (self.joy[1] == 1)
 
 		# both 1 and 2 OR no buttons
-		self.Wait = (self.Wait or self.Swivel or self.Forward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
+		self.G = (self.Wait or self.Swivel or self.Forward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
 					and (((self.joy[5] == 1) and (self.joy[6] == 1)) or \
 						 ((self.joy[0] == 0) and (self.joy[5] == 0) and (self.joy[6] == 0) and (self.joy[1] == 0)))
+
+		self.Forward = self.A
+		self.SRight = self.B
+		self.TRight = self.C
+		self.SLeft = self.D
+		self.TLeft = self.E
+		self.Swivel = self.F
+		self.Wait = self.G
 
 		if self.Forward:
 			self.action = "forward"
