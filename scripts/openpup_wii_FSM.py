@@ -18,7 +18,7 @@ import servo_angles
 class wii_FSM():
 	def __init__(self):
 
-		self.dT = 0.01;
+		self.dT = 0.005;
 		self.timenow = time.time()
 		self.oldtime = self.timenow
 
