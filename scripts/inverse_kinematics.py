@@ -167,7 +167,7 @@ class inverse_kinematics():
 		elif (action == "sideways"):
 			leg_pace = 10.0 # pace of gait
 
-			x_center = -0.1
+			x_center = 0.2
 			x_stride = 0
 
 			y_center = -1
