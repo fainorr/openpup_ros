@@ -171,8 +171,8 @@ class inverse_kinematics():
 
 			y_center = -1
 
-			z_center = -3
-			z_lift = 1
+			z_center = -4
+			z_lift = 1.5
 
 			leg1_offset = 0			# front left
 			leg2_offset = 0			# front right
