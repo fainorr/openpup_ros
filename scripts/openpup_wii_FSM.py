@@ -42,7 +42,8 @@ class wii_FSM():
 		self.direction = 'left'
 
 		self.Wait = 1
-		self.Dance = 0
+		self.Swivel = 0
+		self.Rock = 0
 		self.Forward = 0
 		self.TRight = 0
 		self.SRight = 0
@@ -57,60 +58,60 @@ class wii_FSM():
 		self.F = 0
 		self.G = 0
 		self.H = 0
-		self.I = 0
-		self.J = 0
-		self.K = 0
-		self.L = 0
-		self.M = 0
-		self.N = 0
 
 
 	def loop(self, event):
 
 		# button A
-		self.A = (self.Wait or self.Dance or self.Forward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
+		self.A = (self.Wait or self.Swivel or self.Forward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
 					and (self.joy[0] == 1) and (self.joy[5] == 0) and (self.joy[6] == 0)
 
 		# buttons A and 2
-		self.B = (self.Wait or self.Dance or self.Forward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
+		self.B = (self.Wait or self.Swivel or self.Forward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
 					and (self.joy[0] == 1) and (self.joy[5] == 0) and (self.joy[6] == 1)
 
 		# button 2 only
-		self.C = (self.Wait or self.Dance or self.Forward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
+		self.C = (self.Wait or self.Swivel or self.Forward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
 					and (self.joy[0] == 0) and (self.joy[5] == 0) and (self.joy[6] == 1)
 
 		# buttons A and 1
-		self.D = (self.Wait or self.Dance or self.Forward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
+		self.D = (self.Wait or self.Swivel or self.Forward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
 					and (self.joy[0] == 1) and (self.joy[5] == 1) and (self.joy[6] == 0)
 
 		# button 1 only
-		self.E = (self.Wait or self.Dance or self.Forward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
+		self.E = (self.Wait or self.Swivel or self.Forward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
 					and (self.joy[0] == 0) and (self.joy[5] == 1) and (self.joy[6] == 0)
 
 		# button B only
-		self.F = (self.Wait or self.Dance or self.Forward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
+		self.F = (self.Wait or self.Swivel or self.Forward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
 					and (self.joy[0] == 0) and (self.joy[5] == 0) and (self.joy[6] == 0) and (self.joy[1] == 1)
 
 		# both 1 and 2 OR no buttons
-		self.G = (self.Wait or self.Dance or self.Forward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
+		self.G = (self.Wait or self.Swivel or self.Forward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
 					and (((self.joy[5] == 1) and (self.joy[6] == 1)) or \
 						 ((self.joy[0] == 0) and (self.joy[5] == 0) and (self.joy[6] == 0) and (self.joy[1] == 0)))
+
+		# home button
+		self.H = (self.Wait or self.Swivel or self.Forward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
+					and (self.joy[0] == 0) and (self.joy[5] == 0) and (self.joy[6] == 0) and (self.joy[1] == 0) and (self.joy[2] == 1)
 
 		self.Forward = self.A
 		self.SRight = self.B
 		self.TRight = self.C
 		self.SLeft = self.D
 		self.TLeft = self.E
-		self.Dance = self.F
+		self.Swivel = self.F
 		self.Wait = self.G
+		self.Rock = self.H
 
 		if self.Forward:
 			self.action = "forward"
 
-		if self.Dance:
-			dance_move = randint(0, 1)
-			if (dance_move == 0): self.action = "swivel"
-			if (dance_move == 1): self.action = "rock"
+		if self.Swivel:
+			self.action = "swivel"
+
+		if self.Rock:
+			self.Rock = "rock"
 
 		if self.SLeft:
 			self.action = "sideways"
@@ -132,7 +133,7 @@ class wii_FSM():
 			self.action = "stand"
 
 		# print('Wait = ', self.Wait)
-		# print('Dance = ', self.Dance)
+		# print('Swivel = ', self.Swivel)
 		# print('Forward = ', self.Forward)
 		# print('TRight = ', self.TRight)
 		# print('SRight = ', self.SRight)
