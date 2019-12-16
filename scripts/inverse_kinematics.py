@@ -46,7 +46,7 @@ class inverse_kinematics():
 			self.z4 = z_center
 
 		if (action == "forward"):
-			leg_pace = 8.0 # pace of gait
+			leg_pace = 6.0 # pace of gait
 
 			x_center = 0.2
 			x_stride = 1
@@ -163,6 +163,37 @@ class inverse_kinematics():
 			if (self.z2) < z_center: self.z2 = z_center
 			if (self.z3) < z_center: self.z3 = z_center
 			if (self.z4) < z_center: self.z4 = z_center
+
+		elif (action == "rock"):
+			leg_pace = 5.0 # pace of gait
+
+			x_center = 0.5
+
+			y_center = -1
+
+			z_center = -3
+			z_lift = 1
+
+			leg1_offset = 0			# front left
+			leg2_offset = 0			# front right
+			leg3_offset = pi		# back left
+			leg4_offset = pi 		# back right
+
+			self.x1 = x_center
+			self.y1 = y_center
+			self.z1 = z_center + z_lift*sin(leg_pace*self.t - leg1_offset)
+
+			self.x2 = x_center
+			self.y2 = y_center
+			self.z2 = z_center + z_lift*sin(leg_pace*self.t - leg2_offset)
+
+			self.x3 = x_center
+			self.y3 = y_center
+			self.z3 = z_center + z_lift*sin(leg_pace*self.t - leg3_offset)
+
+			self.x4 = x_center
+			self.y4 = y_center
+			self.z4 = z_center + z_lift*sin(leg_pace*self.t - leg4_offset)
 
 		elif (action == "sideways"):
 			leg_pace = 10.0 # pace of gait
