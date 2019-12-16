@@ -64,7 +64,7 @@ class wii_FSM():
 
 		# button A
 		self.A = (self.Wait or self.Swivel or self.Forward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
-					and (self.joy[0] == 1) and (self.joy[5] == 0) and (self.joy[6] == 0)
+					and (self.joy[0] == 1) and (self.joy[5] == 0) and (self.joy[6] == 0) and (self.joy[1] == 0)
 
 		# buttons A and 2
 		self.B = (self.Wait or self.Swivel or self.Forward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
@@ -91,9 +91,9 @@ class wii_FSM():
 					and (((self.joy[5] == 1) and (self.joy[6] == 1)) or \
 						 ((self.joy[0] == 0) and (self.joy[5] == 0) and (self.joy[6] == 0) and (self.joy[1] == 0)))
 
-		# home button
+		# buttons A and B button
 		self.H = (self.Wait or self.Swivel or self.Forward or self.TRight or self.SRight or self.TLeft or self.SLeft) \
-					and (self.joy[0] == 0) and (self.joy[5] == 0) and (self.joy[6] == 0) and (self.joy[1] == 0) and (self.joy[2] == 1)
+					and (self.joy[0] == 1) and (self.joy[1] == 1)
 
 		self.Forward = self.A
 		self.SRight = self.B
