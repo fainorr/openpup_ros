@@ -8,6 +8,7 @@ roslib.load_manifest('openpup_ros')
 from sensor_msgs.msg import Joy
 from std_msgs.msg import *
 from numpy import *
+from random import randint
 import time
 
 
