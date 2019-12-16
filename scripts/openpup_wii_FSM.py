@@ -111,7 +111,7 @@ class wii_FSM():
 			self.action = "swivel"
 
 		if self.Rock:
-			self.Rock = "rock"
+			self.action = "rock"
 
 		if self.SLeft:
 			self.action = "sideways"
