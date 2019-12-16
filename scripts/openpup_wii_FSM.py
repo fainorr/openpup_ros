@@ -109,7 +109,7 @@ class wii_FSM():
 
 		if self.Dance:
 			dance_move = randint(0, 1)
-			if (dance_move == 0): self.action = "rock"
+			if (dance_move == 0): self.action = "swivel"
 			if (dance_move == 1): self.action = "rock"
 
 		if self.SLeft:
