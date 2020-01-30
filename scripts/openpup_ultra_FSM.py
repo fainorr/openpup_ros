@@ -15,7 +15,7 @@ import inverse_kinematics
 import servo_angles
 
 class ultra_FSM():
-	def_int_(self):
+	def __init__(self):
 
 		self.dT = 0.005;
 		self.timenow = time.time()

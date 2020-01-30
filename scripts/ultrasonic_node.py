@@ -35,42 +35,43 @@ class ultrasonic_sensor():
 		rospy.Timer(rospy.Duration(self.dT), self.loop, oneshot=False)
 
 
-    	def find_distance(self):
-	        # set Trigger to HIGH
-	        GPIO.output(self.trigger, True)
+	def find_distance(self):
+		# set Trigger to HIGH
+		GPIO.output(self.trigger, True)
 
-	        # set Trigger after 0.01ms to LOW
-	        time.sleep(0.00001)
-	        GPIO.output(self.trigger, False)
+		# set Trigger after 0.01ms to LOW
+		time.sleep(0.00001)
+		GPIO.output(self.trigger, False)
 
-	        StartTime = time.time()
-	        StopTime = time.time()
+		StartTime = time.time()
+		StopTime = time.time()
 
-	        # save StartTime
-	        while GPIO.input(self.echo) == 0:
-	            StartTime = time.time()
+		# save StartTime
+		while GPIO.input(self.echo) == 0:
+			StartTime = time.time()
 
-	        # save time of arrival
-	        while GPIO.input(self.echo) == 1:
-	            StopTime = time.time()
+		# save time of arrival
+		while GPIO.input(self.echo) == 1:
+			StopTime = time.time()
 
-	        # time difference between start and arrival
-	        TimeElapsed = StopTime - StartTime
+		# time difference between start and arrival
+		TimeElapsed = StopTime - StartTime
 
-	        # multiply with the sonic speed (34300 cm/s)
-	        # and divide by 2, because there and back
-	        # (distance in cm)
-	        distance = (TimeElapsed * 34300) / 2
+		# multiply with the sonic speed (34300 cm/s)
+		# and divide by 2, because there and back
+		# (distance in cm)
+		distance = (TimeElapsed * 34300) / 2
 
-	        return distance
+		return distance
 
-    def loop(self, event):
+
+	def loop(self, event):
 
 		self.timenow = time.time()
 		self.oldtime = self.timenow
 
 		self.dist_now = self.find_distance()
-        self.dist.publish(self.dist_now)
+		self.dist.publish(self.dist_now)
 
 
 # main function
