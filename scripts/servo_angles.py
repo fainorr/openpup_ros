@@ -73,7 +73,7 @@ class servo_angles():
 		self.sangs4 = (760*self.angs4)/(pi/2)
 
 
-		#sending the servo angles to indivial servos
+		# sending the servo angles to indivial servos
 
 		pwm.set_pwm(0, 0, self.tib2_offset + int(self.sangt2))		#port 0: right front tibia
 		pwm.set_pwm(1, 0, self.fem2_offset + int(self.sangf2))		#port 1: right front femur
@@ -102,5 +102,3 @@ class servo_angles():
 		pulse //= pulse_length
 		pwm.set_pwm(channel, 0, pulse)
 		pwm.set_pwm_freq(100)
-
-
