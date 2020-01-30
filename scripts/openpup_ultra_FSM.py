@@ -10,7 +10,6 @@ from std_msgs.msg import *
 from numpy import *
 import time
 
-
 import inverse_kinematics
 import servo_angles
 
