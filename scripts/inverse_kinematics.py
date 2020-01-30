@@ -276,7 +276,3 @@ class inverse_kinematics():
 
 
 		return As,Af,At
- 
-
-
-
