@@ -14,7 +14,7 @@ import time
 import inverse_kinematics
 import servo_angles
 
-class FSM():
+class ultra_FSM():
 	def_int_(self):
 
 		self.dT = 0.005;
@@ -26,6 +26,7 @@ class FSM():
 		# set up your publishers with appropriate topics
 
 		self.joy = rospy.Subscriber("/joy", Joy, self.wiimotecallback)
+		self.Dst = rospy.Subscriber('/ultrasonic_dist', distance, self.ultracallback)
 
 		self.FSM_action = rospy.Publisher('/action', String, self.actioncallback)
 		self.FSM_direction = rospy.Publisher('/direction', String, self.directioncallback)
@@ -196,12 +197,12 @@ class FSM():
 
 		# Block 3
 
-		self.Ready = self.A and self.R
-		self.Wait = self.B and self.C and self.H and self.L
-		self.Forward = self.D and self.E
-		self.Strafe = self.F and self.G and self.I
-		self.Turn = self.J and self.K
-		self.Stop = self.M and self.N and self.O and self.P and self.Q and self.S
+		self.Ready = self.A or self.R
+		self.Wait = self.B or self.C or self.H or self.L
+		self.Forward = self.D or self.E
+		self.Strafe = self.F or self.G or self.I
+		self.Turn = self.J or self.K
+		self.Stop = self.M or self.N or self.O or self.P or self.Q or self.S
 
 		# Block 4
 
@@ -227,6 +228,10 @@ class FSM():
 
 		self.joy = data.buttons
 
+	def ultracallback(self,data):
+
+		self.Dst = data.data
+
 	def actioncallback(self,data):
 
 		self.action = data.data
@@ -249,5 +254,3 @@ def main(args):
 
 if __name__ == '__main__':
 	main(sys.argv)
-
-
