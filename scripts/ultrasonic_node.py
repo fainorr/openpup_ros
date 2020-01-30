@@ -11,13 +11,6 @@ import time
 
 import RPi.GPIO as GPIO
 
-self.trigger = 18
-self.echo = 24
-
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(self.trigger, GPIO.OUT)
-GPIO.setup(self.echo, GPIO.IN)
-
 
 class ultrasonic_sensor():
 
@@ -30,6 +23,13 @@ class ultrasonic_sensor():
 		self.timenow = rospy.Time.now()
 
 		self.dist = rospy.Publisher('/ultrasonic_dist', Int32, queue_size=1)
+
+		self.trigger = 18
+		self.echo = 24
+
+		GPIO.setmode(GPIO.BCM)
+		GPIO.setup(self.trigger, GPIO.OUT)
+		GPIO.setup(self.echo, GPIO.IN)
 
 		# create loop
 		rospy.Timer(rospy.Duration(self.dT), self.loop, oneshot=False)
