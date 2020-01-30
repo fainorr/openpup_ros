@@ -1,5 +1,6 @@
 <launch>
 	<node pkg="joy" type="joy_node" name="joystick"/>
+	<node pkg="openpup_ros" type="ultrasonic_node.py" name="ultrasonic_sensor"/>
 	<node pkg="openpup_ros" type="openpup_wii_FSM.py" name="wii_FSM"/>
 	<node pkg="openpup_ros" type="servo_control_node.py" name="servo_control"/>
 </launch>
