@@ -9,6 +9,7 @@ from std_msgs.msg import *
 from numpy import *
 import time
 
+
 import RPi.GPIO as GPIO
 
 self.trigger = 18
