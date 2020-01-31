@@ -72,6 +72,7 @@ class ultrasonic_sensor():
 		self.oldtime = self.timenow
 
 		self.dist_now = self.find_distance()
+		print(self.dist_now)
 		self.dist.publish(self.dist_now)
 
 
