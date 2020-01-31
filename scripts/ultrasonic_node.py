@@ -17,7 +17,7 @@ class ultrasonic_sensor():
 
 	def __init__(self):
 
-		self.dT = 0.005;
+		self.dT = 0.5;
 		self.timenow = time.time()
 		self.oldtime = self.timenow
 
@@ -31,10 +31,11 @@ class ultrasonic_sensor():
 		GPIO.setmode(GPIO.BCM)
 		GPIO.setup(self.trigger, GPIO.OUT)
 		GPIO.setup(self.echo, GPIO.IN)
+		GPIO.output(TRIG, False)
+		time.sleep(2)
 
 		# create loop
 		rospy.Timer(rospy.Duration(self.dT), self.loop, oneshot=False)
-
 
 	def find_distance(self):
 		# set Trigger to HIGH
