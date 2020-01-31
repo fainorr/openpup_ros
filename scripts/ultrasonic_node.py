@@ -31,8 +31,6 @@ class ultrasonic_sensor():
 		GPIO.setmode(GPIO.BCM)
 		GPIO.setup(self.trigger, GPIO.OUT)
 		GPIO.setup(self.echo, GPIO.IN)
-		GPIO.output(TRIG, False)
-		time.sleep(2)
 
 		# create loop
 		rospy.Timer(rospy.Duration(self.dT), self.loop, oneshot=False)
