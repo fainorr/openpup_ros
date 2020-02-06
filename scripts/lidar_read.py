@@ -24,18 +24,18 @@ class lidar():
 		# subscribe to rplidar node
 		self.lidar_subscriber = rospy.Subscriber('/scan', LaserScan, self.scancallback)
 
-        # create loop
-        rospy.Timer(rospy.Duration(self.dT), self.loop, oneshot=False)
+		# create loop
+		rospy.Timer(rospy.Duration(self.dT), self.loop, oneshot=False)
 
 
-    def loop(self, event):
+	def loop(self, event):
 
 		self.timenow = time.time()
 		self.oldtime = self.timenow
 
-        # plot distances vs. angles here
+		# plot distances vs. angles here
 
-        print(self.distances)
+		print(self.distances)
 
 
 	def scancallback(self,data):
