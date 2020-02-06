@@ -10,7 +10,6 @@ from sensor_msgs.msg import *
 from numpy import *
 import time
 
-
 class lidar():
 
 	def __init__(self):
