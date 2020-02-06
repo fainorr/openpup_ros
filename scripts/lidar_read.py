@@ -35,7 +35,7 @@ class lidar():
 
 		# plot distances vs. angles here
 
-		print(self.distances)
+		rospy.logwarn(self.distances)
 
 
 	def scancallback(self,data):
