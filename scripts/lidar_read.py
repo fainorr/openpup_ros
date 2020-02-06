@@ -41,7 +41,7 @@ class lidar():
 	def scancallback(self,data):
 
 		self.distances = data.ranges
-		self.angles = arange(data.angle_min, data.angle_max, angle_increment)
+		self.angles = arange(data.angle_min, data.angle_max, data.angle_increment)
 
 
 # main function
