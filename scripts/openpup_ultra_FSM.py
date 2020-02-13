@@ -34,7 +34,7 @@ class ultra_FSM():
 		rospy.Timer(rospy.Duration(self.dT), self.loop, oneshot=False)
 
 		self.joy = [0,0,   0,0,0,0,0]
-		#         [A,B,home,+,-,1,2]
+		#          [A,B,home,+,-,1,2]
 
 		self.action = 'stand'
 		self.direction = 'left'
