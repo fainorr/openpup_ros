@@ -2,89 +2,87 @@
 
 # ULTRASONIC
 
-import roslib
-import rospy
-roslib.load_manifest('openpup_ros')
-from std_msgs.msg import *
-from numpy import *
+import RPi.GPIO as gpio
 import time
+from numpy import *
+import sys
+import signal
+from std_msgs.msg import Float32
+
+import rospy
+import roslib
+roslib.load_manifest('openpup_ros')
 
 
-import RPi.GPIO as GPIO
+def signal_handler(signal, frame): # ctrl + c -> exit program
+		print('You pressed Ctrl+C!')
+		sys.exit(0)
+signal.signal(signal.SIGINT, signal_handler)
 
 
-class ultrasonic_sensor():
+class sonar():
 
 	def __init__(self):
+		rospy.init_node('sonar', anonymous=True)
+		self.distance_publisher = rospy.Publisher('/sonar_dist',Float32, queue_size=1)
+		self.r = rospy.Rate(15)
 
-		self.dT = 0.5;
-		self.timenow = time.time()
-		self.oldtime = self.timenow
+	def dist_sensor(self,dist):
+		data = Float32()
+		data.data = dist
+		self.distance_publisher.publish(data)
 
-		self.timenow = rospy.Time.now()
 
-		self.dist = rospy.Publisher('/ultrasonic_dist', Int32, queue_size=1)
+gpio.setmode(gpio.BCM)
+trig = 4
+echo = 17
 
-		self.trigger = 18
-		self.echo = 24
+gpio.setup(trig, gpio.OUT)
+gpio.setup(echo, gpio.IN)
 
-		GPIO.setmode(GPIO.BCM)
-		GPIO.setup(self.trigger, GPIO.OUT)
-		GPIO.setup(self.echo, GPIO.IN)
+sensor = sonar()
+time.sleep(0.5)
+print ('-----------------------------------------------------------------sonar start')
 
-		# create loop
-		rospy.Timer(rospy.Duration(self.dT), self.loop, oneshot=False)
-
-	def find_distance(self):
-		# set Trigger to HIGH
-		GPIO.output(self.trigger, True)
-
-		# set Trigger after 0.01ms to LOW
+try :
+	while True :
+		#print('running')
+		gpio.output(trig, False)
+		time.sleep(0.1)
+		gpio.output(trig, True)
 		time.sleep(0.00001)
-		GPIO.output(self.trigger, False)
+		gpio.output(trig, False)
 
-		StartTime = time.time()
-		StopTime = time.time()
+		while gpio.input(echo) == 0 :
+			pulse_start = time.time()
+			#print('no')
 
-		# save StartTime
-		while GPIO.input(self.echo) == 0:
-			StartTime = time.time()
+		while gpio.input(echo) == 1 :
+			pulse_end = time.time()
+			#print('yes')
 
-		# save time of arrival
-		while GPIO.input(self.echo) == 1:
-			StopTime = time.time()
+		pulse_duration = pulse_end - pulse_start
+		distance = pulse_duration * 17000
+		distance = round(distance, 3)
 
-		# time difference between start and arrival
-		TimeElapsed = StopTime - StartTime
+		if pulse_duration >= 0.01746:
+			#print('time out')
+			distance = float("inf")
+			continue
 
-		# multiply with the sonic speed (34300 cm/s)
-		# and divide by 2, because there and back
-		# (distance in cm)
-		distance = (TimeElapsed * 34300) / 2
+		elif distance > 300 or distance == 0:
+			#print('out of range')
+			distance = float("inf")
+			continue
 
-		return distance
+		#print ('Distance : %f cm'%distance)
+		sensor.dist_sensor(distance)
 
-
-	def loop(self, event):
-
-		self.timenow = time.time()
-		self.oldtime = self.timenow
-
-		self.dist_now = self.find_distance()
-		print(self.dist_now)
-		self.dist.publish(self.dist_now)
+		sensor.r.sleep()
 
 
-# main function
-
-def main(args):
-	rospy.init_node('ultrasonic_node', anonymous=True)
-	myNode = ultrasonic_sensor()
-
-	try:
-		rospy.spin()
-	except KeyboardInterrupt:
-		print "Shutting down"
-
-if __name__ == '__main__':
-	main(sys.argv)
+except (KeyboardInterrupt, SystemExit):
+	gpio.cleanup()
+	sys.exit(0)
+except:
+	gpio.cleanup()

@@ -25,7 +25,7 @@ class ultra_FSM():
 		# set up your publishers with appropriate topics
 
 		self.joy = rospy.Subscriber("/joy", Joy, self.wiimotecallback)
-		self.Dst = rospy.Subscriber('/ultrasonic_dist', distance, self.ultracallback)
+		self.Dst = rospy.Subscriber('/sonar_dist', distance, self.ultracallback)
 
 		self.FSM_action = rospy.Publisher('/action', String, self.actioncallback)
 		self.FSM_direction = rospy.Publisher('/direction', String, self.directioncallback)
