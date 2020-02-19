@@ -24,9 +24,6 @@ class lidar():
         self.obst_size = 4;         # number of consecutive dots
         self.safe_range = 0.5;      # search ranges for obstacles
 
-        self.starti = [0,90,180,270]
-        self.endi = [89,179,269,359]
-
 		self.distances = zeros(360)
 		self.angles = zeros(360)
 
@@ -35,8 +32,7 @@ class lidar():
 
         # publish array of booleans if an obstacle exists in each quadrant
         self.quad_obstacles = [0,0,0,0]
-
-
+        self.lidar_publisher = rospy.Publisher('/lidar_obstacles', Array, queue_size=1)
 
 		# create loop
 		rospy.Timer(rospy.Duration(self.dT), self.loop, oneshot=False)
@@ -50,22 +46,24 @@ class lidar():
 		# ANALYZE scan
 
         # concert distances to boolean array if in range
-        for i in range(0,359):
+        for i in range(0,360):
             if self.distances[i] > self.safe_range: self.distances[i] = 0
             else: self.distances[i] = 1
 
-        for quad in range(0,3):
+        for quad in range(0,4):
             self.quad_check = zeros((90-self.obst_size,1))
 
-            for j in range(self.starti[quad], self.endi[quad] - self.obst_size):
+            for j in range(90*quad, 90*(quad+1) - self.obst_size):
                 scan_obst_size = 0
 
-                for k in range(0,self.obst_size-1):
+                for k in range(0,self.obst_size):
                     if self.distances[j+k] == 1: scan_obst_size = scan_obst_size + 1
 
-                if scan_obst_size == self.obst_size: self.quad_check[j] = 1
+                if scan_obst_size == self.obst_size: self.quad_check[j-90*quad] = 1
 
             if sum(self.quad_check >= 1): self.quad_obstacles[quad] = 1
+
+        self.lidar_publisher.publish(self.quad_obstacles)
 
 
 	def scancallback(self,data):
