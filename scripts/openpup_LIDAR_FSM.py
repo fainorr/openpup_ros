@@ -28,7 +28,7 @@ class LIDAR_FSM():
 		# set up your publishers with appropriate topics
 
 		self.joy = rospy.Subscriber("/joy", Joy, self.wiimotecallback)
-		self.lidar_obstacles = rospy.Subscriber("/lidar_obstacles", lidar_obstacles, self.lidarcallback)
+		self.lidar_obstacles = rospy.Subscriber("/lidar_obstacles", Int16MultiArray, self.lidarcallback)
 
 		self.FSM_aciton = rospy.Publisher('/action', String, self.actioncallback)
 		self.FSM_direction = rospy.Publisher('/direction', String, self.directioncallback)
@@ -155,7 +155,7 @@ class LIDAR_FSM():
 		self.Wait = self.F or self.G
 		self.Explore = self.I or self.J or self.M
 		self.Control = self.E or self.L or self.N
-		self.Stop = self.B or self.H or self.K or self.O 
+		self.Stop = self.B or self.H or self.K or self.O
 
 		# Block 4
 
@@ -228,7 +228,7 @@ class LIDAR_FSM():
 
 	def lidarcallback(self,data):
 
-		self.LIDAR = data.data
+		self.lidar_obstacles = data.data
 
 	def actioncallback(self,data):
 
@@ -252,4 +252,3 @@ def main(args):
 
 if __name__ == '__main__':
 	main(sys.argv)
-
