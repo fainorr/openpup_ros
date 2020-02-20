@@ -3,7 +3,7 @@
 # LIDAR ANALYSIS NODE
 # breaks scan into four quadrants
 # checks for obst_size (number of consecutive dots) within safe_range
-# passes array of booleans (true is obstacle exists) [front, left, right, back]
+# passes array of booleans (true if obstacle exists) [front, right, back, left]
 
 import roslib
 import rospy
