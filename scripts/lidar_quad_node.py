@@ -14,7 +14,7 @@ from numpy import *
 import time
 
 
-class lidar():
+class lidar_quad():
 
 	def __init__(self):
 
@@ -42,6 +42,8 @@ class lidar():
 
 	def loop(self, event):
 
+		self.quad_obstacles = [0,0,0,0]
+
 		self.timenow = time.time()
 		self.oldtime = self.timenow
 
@@ -66,20 +68,19 @@ class lidar():
 			if sum(self.quad_check >= 1): self.quad_obstacles[quad] = 1
 
 		self.publish_data.data = self.quad_obstacles
-
 		self.lidar_publisher.publish(self.publish_data)
 
 
 	def scancallback(self,data):
 
-		self.distances = data.ranges
+		self.distances = array(data.ranges)
 		self.angles = arange(data.angle_min, data.angle_max, data.angle_increment)
 
 
 # main function
 
 def main(args):
-	rospy.init_node('lidar_read', anonymous=True)
+	rospy.init_node('lidar_quad_node', anonymous=True)
 	myNode = lidar()
 
 	try:
