@@ -2,7 +2,7 @@
 
 # LIDAR FINITE STATE MACHINE NODE
 
-# Note this is currently incomplete, currently waiting for LIDAR outputs from the LIDAR node
+# check the publishers and subscribers to make sure they are okay
 
 import roslib
 import rospy
@@ -14,7 +14,7 @@ import time
 
 import inverse_kinematics
 import servo_angles
-import lidar_read
+import lidar_quad_node
 
 class LIDAR_FSM():
 	def __init__(self):
@@ -28,7 +28,7 @@ class LIDAR_FSM():
 		# set up your publishers with appropriate topics
 
 		self.joy = rospy.Subscriber("/joy", Joy, self.wiimotecallback)
-		#insert lidar subscriber here when it is ready
+		self.lidar_obstacles = rospy.Subscriber("/lidar_obstacles", lidar_obstacles, self.lidarcallback)
 
 		self.FSM_aciton = rospy.Publisher('/action', String, self.actioncallback)
 		self.FSM_direction = rospy.Publisher('/direction', String, self.directioncallback)
@@ -38,6 +38,9 @@ class LIDAR_FSM():
 
 		self.joy = [0,0,   0,0,0,0,0]
 		#          [A,B,home,+,-,1,2]
+
+		self.lidar_obstacles = [    0,     0,    0,    0]
+		#                      [Front, Right, Back, Left]
 
 		self.action = 'stand'
 		self.direction = 'left'
@@ -93,6 +96,12 @@ class LIDAR_FSM():
 		self.HE = 0
 		self.IE = 0
 		self.JE = 0
+		self.KE = 0
+		self.LE = 0
+		self.ME = 0
+		self.NE = 0
+		self.OE = 0
+		self.OP = 0
 
 
 	def loop(self, event):
@@ -154,16 +163,22 @@ class LIDAR_FSM():
 
 			# Block 2
 
-			self.AE = self.Straight and not #LIDAR outputs  here
-			self.BE = self.Straight and #LIDAR output to turn left here
-			self.CE = self.TL and #LIDAR output that we are done turning here
-			self.DE = self.TL and not #LIDAR output that we are done turning here
-			self.EE = self.Straight and #LIDAR output to turn right here
-			self.FE = self.TR and #LIDAR output to stop turning right here
-			self.GE = self.TR and not #LIDAR output to stop turning right here
-			self.HE = self.Straight and #LIDAR output of detected object here
-			self.IE = self.Ex_Stop and #LIDAR output of all clear here
-			self.JE = self.Explore and not #LIDAR output of all clear here
+			self.AE = self.Straight and (self.lidar_obstacles[0] == 0)
+			self.BE = self.Straight and (self.lidar_obstacles[0] == 1) and (self.lidar_obstacles[1] == 1)
+			self.CE = self.TL and (self.lidar_obstacles[0] == 1) and (self.lidar_obstacles[1] == 1)
+			self.DE = self.TL and (self.lidar_obstacles[0] == 0)
+			self.EE = self.Straight and (self.lidar_obstacles[0] == 1) and (self.lidar_obstacles[3] == 1)
+			self.FE = self.TR and (self.lidar_obstacles[0] == 1) and (self.lidar_obstacles[3] == 1)
+			self.GE = self.TR and (self.lidar_obstacles[0] == 0)
+			self.HE = self.Straight and (self.lidar_obstacles[0] == 1) and (self.lidar_obstacles[1] == 1) and (self.lidar_obstacles[2] == 1) and (self.lidar_obstacles[3] == 1)
+			self.IE = self.Ex_Stop and (self.lidar_obstacles[0] == 0)
+			self.JE = self.Explore and (self.lidar_obstacles[3] == 0)
+			self.KE = self.TL and (self.lidar_obstacles[0] == 1) and (self.lidar_obstacles[1] == 1) and (self.lidar_obstacles[2] == 1) and (self.lidar_obstacles[3] == 1)
+			self.LE = self.Ex_Stop and (self.lidar_obstacles[1] == 0)
+			self.ME = self.TR and (self.lidar_obstacles[0] == 1) and (self.lidar_obstacles[1] == 1) and (self.lidar_obstacles[2] == 1) and (self.lidar_obstacles[3] == 1)
+			self.NE = self.Ex_Stop and (self.lidar_obstacles[0] == 1) and (self.lidar_obstacles[1] == 1) and (self.lidar_obstacles[2] == 1) and (self.lidar_obstacles[3] == 1)
+			self.OE = self.TL and (self.lidar_obstacles[0] == 1) and (self.lidar_obstacles[3] == 1) and (self.lidar_obstacles[1] == 0)
+			self.PE = self.TR and (self.lidar_obstacles[0] == 1) and (self.lidar_obstacles[1] == 1) and (self.lidar_obstacles[3] == 0)
 
 			# Block 3
 
