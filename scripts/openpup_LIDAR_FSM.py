@@ -30,7 +30,7 @@ class LIDAR_FSM():
 		self.joy = rospy.Subscriber("/joy", Joy, self.wiimotecallback)
 		self.lidar_obstacles = rospy.Subscriber("/lidar_obstacles", Int16MultiArray, self.lidarcallback)
 
-		self.FSM_aciton = rospy.Publisher('/action', String, self.actioncallback)
+		self.FSM_action = rospy.Publisher('/action', String, self.actioncallback)
 		self.FSM_direction = rospy.Publisher('/direction', String, self.directioncallback)
 
 		#create loop
