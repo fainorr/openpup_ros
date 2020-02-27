@@ -10,6 +10,7 @@ from sensor_msgs.msg import *
 from numpy import *
 import time
 
+
 class microphone():
 
 	def __init__(self):
