@@ -1,0 +1,13 @@
+<launch>
+  <machine name="rasp_pi" address="192.168.1.6" user="pi" password="rosbots!" env-loader="/home/pi/rosbots_startup.sh"/>
+  <machine name="brown_laptop" address="192.168.1.4" user="brownlab" password="robots" env-loader="/home/brownlab/openpup_second_machine/openpup_startup.sh"/>
+
+  <group ns="rasp_pi">
+    <node machine="rasp_pi" pkg="openpup_ros" type="mic_node.py" name="mic_subscriber"/>
+  </group>
+
+  <group ns="brown_laptop">
+    <node machine="brown_laptop" pkg="pocketsphinx" type="recognizer.py" name="mic_reader"/>
+  </group>
+
+</launch>
