@@ -10,49 +10,51 @@ from sensor_msgs.msg import *
 from numpy import *
 import time
 
+from pocketsphinx import *
+from sphinxbase import *
 
-class microphone():
+def microphone()
+    pub = rospy.Publisher("/output", String, queue_size=10)
+    rospy.init_node('microphone', anonymous=True)
+    rate = rospy.Rate(1) # Hz
 
-	def __init__(self):
+    MODELDIR = "home/brownlab/pocketsphinx/model"
+    DATADIR = "home/brownlab/pocketsphinx/test/data"
 
-		self.dT = 1.0;
-		self.timenow = time.time()
-		self.oldtime = self.timenow
+    config = Decoder.default_config()
+    config.set_string('-hmm', path.join(MODELDIR, 'en-us/en-us'))
+    config.set_string('-lm', path.join(MODELDIR, 'en-us/en-us.lm.bin'))
+    config.set_string('-dict', path.join(MODELDIR, 'en-us/cmudict-en-us.dict'))
+    config.set_string('-logfn', '/dev/null')
+    decoder = Decoder(config)
 
-		self.mic_text = '';
+    stream = open(path.join(DATADIR, 'goforward.raw'), 'rb')
+    #stream = open('10001-90210-01803.wav', 'rb')
 
-		# subscribe to rplidar node
-		self.HOORAY = rospy.Subscriber("/output", String, self.mic_callback)
+    in_speech_bf = False
+    decoder.start_utt()
 
-		# create loop
-		rospy.Timer(rospy.Duration(self.dT), self.loop, oneshot=False)
+    while not rospy.is_shutdown():
 
+        buf = stream.read(1024)
+        if buf:
+            decoder.process_raw(buf, False, False)
+            if decoder.get_in_speech() != in_speech_bf:
+                in_speech_bf = decoder.get_in_speech()
+                if not in_speech_bf:
+                    decoder.end_utt()
+                    print 'Result:', decoder.hyp().hypstr
+                    decoder.start_utt()
+        else:
+            break
 
-	def loop(self, event):
+        pub.publish(decoder.hyp().hypstr)
+        rate.sleep()
 
-		self.timenow = time.time()
-		self.oldtime = self.timenow
-
-		# Read output
-
-        rospy.logwarn(self.mic_text)
-
-
-	def mic_callback(self,data):
-
-		self.mic_text = data.data
-
-
-# main function
-
-def main(args):
-	rospy.init_node('mic_node', anonymous=True)
-	myNode = microphone()
-
-	try:
-		rospy.spin()
-	except KeyboardInterrupt:
-		print "Shutting down"
+    decoder.end_utt()
 
 if __name__ == '__main__':
-	main(sys.argv)
+	try:
+        microphone()
+    except rospy.ROSInterruptException:
+        pass

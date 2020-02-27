@@ -1,13 +1,20 @@
 <launch>
+  <env name="ROS_MASTER_URI" value="http://192.168.1.6:11311"/>
+  <env name="ROS_IP" value="192.168.1.6"/>
+
   <machine name="rasp_pi" address="192.168.1.6" user="pi" password="rosbots!" env-loader="/home/pi/rosbots_startup.sh"/>
   <machine name="brown_laptop" address="192.168.1.4" user="brownlab" password="robots" env-loader="/home/brownlab/openpup_second_machine/openpup_startup.sh"/>
+  <env name="ROSLAUNCH_SSH_UNKNOWN" value="1"/>
 
   <group ns="rasp_pi">
     <node machine="rasp_pi" pkg="openpup_ros" type="mic_node.py" name="mic_subscriber"/>
   </group>
 
   <group ns="brown_laptop">
-    <node machine="brown_laptop" pkg="pocketsphinx" type="recognizer.py" name="mic_reader"/>
+    <node machine="brown_laptop" pkg="pocketsphinx" type="recognizer.py" name="mic_reader">
+      <param name="lm" value="$(find pocketsphinx)/demo/robocup.lm"/>
+      <param name="dict" value="$(find pocketsphinx)/demo/robocup.dic"/>
+    </node>
   </group>
 
 </launch>
