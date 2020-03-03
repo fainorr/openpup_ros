@@ -59,7 +59,7 @@ class Voice_FSM():
 		self.B = self.Ready and # command for Dance
 		self.C = self.Ready and # command for Sit
 		self.D = self.Dance and not # any of the commands
-		self.E = self.Dancce and # command for Stop
+		self.E = self.Dance and # command for Stop
 		self.F = self.Dance and # command for Sit
 		self.G = self.Sit and not # any of the commands
 		self.H = self.Sit and # command for Dance
