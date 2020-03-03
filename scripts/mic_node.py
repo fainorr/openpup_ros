@@ -9,6 +9,7 @@ from std_msgs.msg import *
 from sensor_msgs.msg import *
 from numpy import *
 import time
+import os.path as path
 
 from pocketsphinx import *
 from sphinxbase import *
