@@ -13,6 +13,7 @@ import inverse_kinematics
 import servo_angles
 # import voice recognition stuff
 
+
 class voice_FSM():
 	def __init__(self):
 
