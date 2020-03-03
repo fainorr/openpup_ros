@@ -25,10 +25,10 @@ class voice_FSM():
 
 		# set up your publishers with appropriate topics
 
-		self.FSM_action = rospy.Publisher('/action', String, self.actioncallback)
-		self.FSM_direction = rospy.Publisher('/direction', String, self.directioncallback)
-
 		self.micsub = rospy.Subscriber("/mic_output", String, self.mic_callback)
+
+		self.FSM_action = rospy.Publisher('/action', String, queue_size=1)
+		self.FSM_direction = rospy.Publisher('/direction', String, queue_size=1)
 
 		#creat loop
 		rospy.Timer(rospy.Duration(self.dT), self.loop, oneshot=False)
@@ -86,14 +86,6 @@ class voice_FSM():
 
 		self.FSM_action.publish(self.action)
 		self.FSM_direction.publish(self.direction)
-
-	def actioncallback(self,data):
-
-		self.action = data.data
-
-	def directioncallback(self,data):
-
-		self.direction = data.data
 
 	def mic_callback(self,data):
 
