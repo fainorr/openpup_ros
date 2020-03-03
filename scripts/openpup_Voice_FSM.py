@@ -13,7 +13,7 @@ import inverse_kinematics
 import servo_angles
 # import voice recognition stuff
 
-class Voice_FSM():
+class voice_FSM():
 	def __init__(self):
 
 		self.dT = 0.005
@@ -25,8 +25,9 @@ class Voice_FSM():
 		# set up your publishers with appropriate topics
 
 		self.FSM_action = rospy.Publisher('/action', String, self.actioncallback)
-		self.FSM_direction = rospy.Publusher('/direction', String, self.directioncallback)
-		# insert needed voice recognition stuff
+		self.FSM_direction = rospy.Publisher('/direction', String, self.directioncallback)
+
+		self.micsub = rospy.Subscriber("/mic_output", String, self.mic_callback)
 
 		#creat loop
 		rospy.Timer(rospy.Duration(self.dT), self.loop, oneshot=False)
@@ -55,15 +56,15 @@ class Voice_FSM():
 
 		# Block 2
 
-		self.A = self.Ready and not # any of the commands
-		self.B = self.Ready and # command for Dance
-		self.C = self.Ready and # command for Sit
-		self.D = self.Dance and not # any of the commands
-		self.E = self.Dancce and # command for Stop
-		self.F = self.Dance and # command for Sit
-		self.G = self.Sit and not # any of the commands
-		self.H = self.Sit and # command for Dance
-		self.I = self.Sit and # command for Stop
+		self.A = self.Ready and not ((self.mic_string == "swivel") or (self.mic_string == "down"))
+		self.B = self.Ready and (self.mic_string == "swivel")
+		self.C = self.Ready and (self.mic_string == "down")
+		self.D = self.Dance and not ((self.mic_string == "stop") or (self.mic_string == "down"))
+		self.E = self.Dance and (self.mic_string == "stop")
+		self.F = self.Dance and (self.mic_string == "down")
+		self.G = self.Sit and not ()(self.mic_string == "stop") or (self.mic_string == "swivel"))
+		self.H = self.Sit and (self.mic_string == "swivel")
+		self.I = self.Sit and (self.mic_string == "stop")
 
 		# Block 3
 
@@ -93,12 +94,16 @@ class Voice_FSM():
 
 		self.direction = data.data
 
+	def mic_callback(self,data):
+
+		self.mic_string = data.data
+
 
 # main function
 
 def main(args):
-	rospy.init_node('openpup_Voice_FSM', anonymous=True)
-	myNode = Voice_FSM()
+	rospy.init_node('openpup_voice_FSM', anonymous=True)
+	myNode = voice_FSM()
 
 	try:
 		rospy.sping()

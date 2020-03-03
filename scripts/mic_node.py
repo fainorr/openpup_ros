@@ -16,9 +16,8 @@ from sphinxbase import *
 
 import pyaudio
 
-
 def microphone():
-	pub = rospy.Publisher("/output", String, queue_size=10)
+	pub = rospy.Publisher("/mic_output", String, queue_size=10)
 	rospy.init_node('microphone', anonymous=True)
 	rate = rospy.Rate(1) # Hz
 
@@ -32,8 +31,6 @@ def microphone():
 	config.set_string('-logfn', '/dev/null')
 	decoder = Decoder(config)
 
-	#stream = open(path.join(DATADIR, 'goforward.raw'), 'rb')
-	#stream = open('10001-90210-01803.wav', 'rb')
 	p = pyaudio.PyAudio()
 	stream = p.open(format=pyaudio.paInt16, channels=1, rate=16000, input=True, frames_per_buffer=1024)
 	stream.start_stream()
@@ -42,12 +39,9 @@ def microphone():
 	decoder.start_utt()
 
 	while not rospy.is_shutdown():
-		#print "trying stuff"
 		buf = stream.read(1024)
-		#print buf
 		if buf:
 			proc = decoder.process_raw(buf, False, False)
-			#print proc
 			inspeech = decoder.get_in_speech()
 			#print inspeech
 			if inspeech != in_speech_bf:
@@ -60,16 +54,13 @@ def microphone():
 					decoder.start_utt()
 			else:
 				pass
-				#print "didn't get not in speech"
 		else:
-			print "no buf, dude."
 			continue
 
-
-		
 		time.sleep(0.0001)
 
 	decoder.end_utt()
+
 
 if __name__ == '__main__':
 	try:
