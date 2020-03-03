@@ -1,5 +1,9 @@
 <launch>
-  <env name="ROS_MASTER_URI" value="http://192.168.1.6:11311"/>
+
+  <node pkg="openpup_ros" type="mic_node.py" name="microphone"/>
+	<node pkg="openpup_ros" type="openpup_voice_FSM.py" name="FSM"/>
+
+  <!-- <env name="ROS_MASTER_URI" value="http://192.168.1.6:11311"/>
   <env name="ROS_IP" value="192.168.1.6"/>
 
   <machine name="rasp_pi" address="192.168.1.6" user="pi" password="rosbots!" env-loader="/home/pi/rosbots_startup.sh"/>
@@ -15,6 +19,6 @@
       <param name="lm" value="$(find pocketsphinx)/demo/robocup.lm"/>
       <param name="dict" value="$(find pocketsphinx)/demo/robocup.dic"/>
     </node>
-  </group>
+  </group> -->
 
 </launch>
