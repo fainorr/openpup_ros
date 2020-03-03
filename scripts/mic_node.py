@@ -14,6 +14,9 @@ import os.path as path
 from pocketsphinx import *
 from sphinxbase import *
 
+import pyaudio
+
+
 def microphone():
 	pub = rospy.Publisher("/output", String, queue_size=10)
 	rospy.init_node('microphone', anonymous=True)
@@ -29,28 +32,42 @@ def microphone():
 	config.set_string('-logfn', '/dev/null')
 	decoder = Decoder(config)
 
-	stream = open(path.join(DATADIR, 'goforward.raw'), 'rb')
+	#stream = open(path.join(DATADIR, 'goforward.raw'), 'rb')
 	#stream = open('10001-90210-01803.wav', 'rb')
+	p = pyaudio.PyAudio()
+	stream = p.open(format=pyaudio.paInt16, channels=1, rate=16000, input=True, frames_per_buffer=1024)
+	stream.start_stream()
 
 	in_speech_bf = False
 	decoder.start_utt()
 
 	while not rospy.is_shutdown():
-
+		#print "trying stuff"
 		buf = stream.read(1024)
+		#print buf
 		if buf:
-			decoder.process_raw(buf, False, False)
-			if decoder.get_in_speech() != in_speech_bf:
+			proc = decoder.process_raw(buf, False, False)
+			#print proc
+			inspeech = decoder.get_in_speech()
+			#print inspeech
+			if inspeech != in_speech_bf:
 				in_speech_bf = decoder.get_in_speech()
+				print in_speech_bf
 				if not in_speech_bf:
 					decoder.end_utt()
 					print 'Result:', decoder.hyp().hypstr
+					pub.publish(decoder.hyp().hypstr)
 					decoder.start_utt()
+			else:
+				pass
+				#print "didn't get not in speech"
 		else:
-			break
+			print "no buf, dude."
+			continue
 
-		pub.publish(decoder.hyp().hypstr)
-		rate.sleep()
+
+		
+		time.sleep(0.0001)
 
 	decoder.end_utt()
 
