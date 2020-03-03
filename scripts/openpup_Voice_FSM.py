@@ -33,6 +33,8 @@ class voice_FSM():
 		#creat loop
 		rospy.Timer(rospy.Duration(self.dT), self.loop, oneshot=False)
 
+		self.mic_string = 'stop'
+
 		self.action = 'stand'
 		self.direction = 'left'
 
