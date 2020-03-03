@@ -10,7 +10,7 @@ from numpy import *
 import time
 
 import inverse_kinematics
-import servo_angles
+# import servo_angles
 
 
 # import voice recognition stuff
