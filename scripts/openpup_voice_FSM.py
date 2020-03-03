@@ -67,7 +67,7 @@ class voice_FSM():
 		self.D = self.Dance and not ((self.mic_string == "stop") or (self.mic_string == "down"))
 		self.E = self.Dance and (self.mic_string == "stop")
 		self.F = self.Dance and (self.mic_string == "down")
-		self.G = self.Sit and not ()(self.mic_string == "stop") or (self.mic_string == "swivel"))
+		self.G = self.Sit and not ((self.mic_string == "stop") or (self.mic_string == "swivel"))
 		self.H = self.Sit and (self.mic_string == "swivel")
 		self.I = self.Sit and (self.mic_string == "stop")
 
