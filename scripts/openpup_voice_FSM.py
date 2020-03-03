@@ -103,7 +103,7 @@ def main(args):
 	myNode = voice_FSM()
 
 	try:
-		rospy.sping()
+		rospy.spin()
 	except KeyboardInterrupt:
 		print "Shutting down"
 
