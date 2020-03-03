@@ -13,13 +13,13 @@ import time
 from pocketsphinx import *
 from sphinxbase import *
 
-def microphone()
+def microphone():
     pub = rospy.Publisher("/output", String, queue_size=10)
     rospy.init_node('microphone', anonymous=True)
     rate = rospy.Rate(1) # Hz
 
-    MODELDIR = "home/brownlab/pocketsphinx/model"
-    DATADIR = "home/brownlab/pocketsphinx/test/data"
+    MODELDIR = "/home/brownlab/pocketsphinx/model"
+    DATADIR = "/home/brownlab/pocketsphinx/test/data"
 
     config = Decoder.default_config()
     config.set_string('-hmm', path.join(MODELDIR, 'en-us/en-us'))
