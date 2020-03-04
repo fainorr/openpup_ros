@@ -10,11 +10,6 @@ from numpy import *
 import time
 
 import inverse_kinematics
-# import servo_angles
-
-
-# import voice recognition stuff
-
 
 class voice_FSM():
 	def __init__(self):
@@ -57,19 +52,32 @@ class voice_FSM():
 
 	def loop(self, event):
 
-		# Block 1
+		# returns booleans if one of the key words is heard
+
+		self.dance_command = ('swivel' in self.mic_string) or \
+		 				     ('dance' in self.mic_string) or \
+					 		 ('little' in self.mic_string)
+
+		self.down_command = ('down' in self.mic_string) or \
+							('sit' in self.mic_string) or \
+					 		('say it' in self.mic_string)
+
+		self.stop_command = ('stop' in self.mic_string) or \
+							('ready' in self.mic_string) or \
+					 		('stand' in self.mic_string) or \
+					 		('not' in self.mic_string)
 
 		# Block 2
 
-		self.A = self.Ready and not ((self.mic_string == "swivel") or (self.mic_string == "down"))
-		self.B = self.Ready and (self.mic_string == "swivel")
-		self.C = self.Ready and (self.mic_string == "down")
-		self.D = self.Dance and not ((self.mic_string == "stop") or (self.mic_string == "down"))
-		self.E = self.Dance and (self.mic_string == "stop")
-		self.F = self.Dance and (self.mic_string == "down")
-		self.G = self.Sit and not ((self.mic_string == "stop") or (self.mic_string == "swivel"))
-		self.H = self.Sit and (self.mic_string == "swivel")
-		self.I = self.Sit and (self.mic_string == "stop")
+		self.A = self.Ready and not (self.dance_command or self.down_command)
+		self.B = self.Ready and self.dance_command
+		self.C = self.Ready and self.down_command
+		self.D = self.Dance and not (self.stop_command or self.down_command)
+		self.E = self.Dance and self.stop_command
+		self.F = self.Dance and self.down_command
+		self.G = self.Sit and not (self.stop_command or self.dance_command)
+		self.H = self.Sit and self.dance_command
+		self.I = self.Sit and self.stop_command
 
 		# Block 3
 
