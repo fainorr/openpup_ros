@@ -234,9 +234,6 @@ class ultra_FSM():
 		self.ultrasonic_value = data.data
 		self.Dst = (self.ultrasonic_value <= self.threshhold_dist)
 
-		rospy.logwarn("Ready, Wait, Forward, Strafe, Turn, Stop")
-		rospy.logwarn("%s, %s, %s, %s, %s, %s", self.Ready,self.Wait,self.Forward,self.Strafe,self.Turn,self.Stop)
-
 # main function
 
 def main(args):
