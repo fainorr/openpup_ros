@@ -130,7 +130,7 @@ class ultra_FSM():
 		else:
 			self.delta_t0 = 0
 
-		self.T0 = self.delta_t0 > 5
+		self.T0 = self.delta_t0 > 1
 		#-----------------------------------------------
 
 		#--------------------TIMER_1--------------------
