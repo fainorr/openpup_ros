@@ -16,6 +16,8 @@ import servo_angles
 class ultra_FSM():
 	def __init__(self):
 
+		self.threshhold_dist = 0.2
+
 		self.dT = 0.005;
 		self.timenow = time.time()
 		self.oldtime = self.timenow
@@ -25,7 +27,7 @@ class ultra_FSM():
 		# set up your publishers with appropriate topics
 
 		self.joy = rospy.Subscriber("/joy", Joy, self.wiimotecallback)
-		self.Dst = rospy.Subscriber('/sonar_dist', distance, self.ultracallback)
+		self.ultra_subscriber = rospy.Subscriber('/sonar_dist', distance, self.ultracallback)
 
 		self.FSM_action = rospy.Publisher('/action', String, self.actioncallback)
 		self.FSM_direction = rospy.Publisher('/direction', String, self.directioncallback)
@@ -229,7 +231,8 @@ class ultra_FSM():
 
 	def ultracallback(self,data):
 
-		self.Dst = data.data
+		self.ultrasonic_value = data.data
+		self.Dst = (self.ultrasonic_value <= self.threshhold_dist)
 
 	def actioncallback(self,data):
 
