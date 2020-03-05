@@ -10,13 +10,12 @@ from std_msgs.msg import *
 from numpy import *
 import time
 
-import inverse_kinematics
-import servo_angles
-
 class ultra_FSM():
 	def __init__(self):
 
 		self.threshhold_dist = 20.0
+		self.ultrasonic_value = 30.0
+		self.Dst = false
 
 		self.dT = 0.005;
 		self.timenow = time.time()
