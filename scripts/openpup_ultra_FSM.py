@@ -16,7 +16,7 @@ import servo_angles
 class ultra_FSM():
 	def __init__(self):
 
-		self.threshhold_dist = 0.2
+		self.threshhold_dist = 20.0
 
 		self.dT = 0.005;
 		self.timenow = time.time()
