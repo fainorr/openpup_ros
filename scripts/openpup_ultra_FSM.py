@@ -180,8 +180,8 @@ class ultra_FSM():
 		self.A = self.Ready and (self.joy[0] == 0) and (self.joy[1] == 0)
 		self.B = self.Ready and (self.joy[0] == 1)
 		self.C = self.Wait and (self.joy[1] == 0) and not self.T0
-		self.D = self.Wait and self.T0 and not Dst
-		self.E = self.Forward and (self.joy[1] == 0) and not Dst
+		self.D = self.Wait and self.T0 and not self.Dst
+		self.E = self.Forward and (self.joy[1] == 0) and not self.Dst
 		self.F = self.Forward and self.Dst
 		self.G = self.Wait and self.T0 and self.Dst
 		self.H = self.Strafe and self.T1 and not self.Dst
