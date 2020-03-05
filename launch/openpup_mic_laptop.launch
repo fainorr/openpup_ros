@@ -1,0 +1,5 @@
+<launch>
+
+  <node pkg="openpup_ros" type="mic_node.py" name="mic_reader"/>
+
+</launch>

@@ -1,6 +1,9 @@
 <launch>
 
-  <machine name="rasp_pi" address="192.168.1.2" user="pi" password="rosbots!" env-loader="/home/pi/rosbots_startup.sh"/>
+  <node pkg="openpup_ros" type="openpup_voice_FSM.py" name="FSM"/>
+  <node pkg="openpup_ros" type="servo_control_node.py" name="servo_control"/>
+
+  <!-- <machine name="rasp_pi" address="192.168.1.2" user="pi" password="rosbots!" env-loader="/home/pi/rosbots_startup.sh"/>
   <machine name="brown_laptop" address="192.168.1.4" user="brownlab" password="robots" env-loader="/home/brownlab/openpup_second_machine/openpup_startup.sh"/>
 
   <group ns="rasp_pi">
@@ -9,6 +12,6 @@
 
   <group ns="brown_laptop">
     <node machine="brown_laptop" pkg="openpup_ros" type="mic_node.py" name="mic_reader"/>
-  </group>
+  </group> -->
 
 </launch>
