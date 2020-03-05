@@ -219,7 +219,7 @@ class ultra_FSM():
 			self.action = "turn"
 			self.direction = "right"
 
-		if self.Wait:
+		if self.Wait or self.Stop or self.Ready:
 			self.action = "stand"
 
 		self.FSM_action.publish(self.action)
