@@ -13,6 +13,8 @@ import time
 class ultra_FSM():
 	def __init__(self):
 
+		rospy.logwarn("started FSM")
+
 		self.threshhold_dist = 20.0
 		self.ultrasonic_value = 30.0
 		self.Dst = false
