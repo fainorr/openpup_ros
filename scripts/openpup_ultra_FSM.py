@@ -29,8 +29,8 @@ class ultra_FSM():
 		self.joy = rospy.Subscriber("/joy", Joy, self.wiimotecallback)
 		self.ultra_subscriber = rospy.Subscriber('/sonar_dist', distance, self.ultracallback)
 
-		self.FSM_action = rospy.Publisher('/action', String, self.actioncallback)
-		self.FSM_direction = rospy.Publisher('/direction', String, self.directioncallback)
+		self.FSM_action = rospy.Publisher('/action', String, queue_size=1
+		self.FSM_direction = rospy.Publisher('/direction', String, queue_size=1)
 
 		#create loop
 		rospy.Timer(rospy.Duration(self.dT), self.loop, oneshot=False)

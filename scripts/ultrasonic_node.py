@@ -42,7 +42,7 @@ gpio.setup(echo, gpio.IN)
 
 sensor = sonar()
 time.sleep(0.5)
-print ('-----------------------------------------------------------------sonar start')
+print ('--sonar start--')
 
 try :
 	while True :
