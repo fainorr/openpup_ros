@@ -29,7 +29,7 @@ class ultra_FSM():
 		self.joy = rospy.Subscriber("/joy", Joy, self.wiimotecallback)
 		self.ultra_subscriber = rospy.Subscriber('/sonar_dist', distance, self.ultracallback)
 
-		self.FSM_action = rospy.Publisher('/action', String, queue_size=1
+		self.FSM_action = rospy.Publisher('/action', String, queue_size=1)
 		self.FSM_direction = rospy.Publisher('/direction', String, queue_size=1)
 
 		#create loop
@@ -233,14 +233,6 @@ class ultra_FSM():
 
 		self.ultrasonic_value = data.data
 		self.Dst = (self.ultrasonic_value <= self.threshhold_dist)
-
-	def actioncallback(self,data):
-
-		self.action = data.data
-
-	def directioncallback(self,data):
-
-		self.direction = data.data
 
 
 # main function
