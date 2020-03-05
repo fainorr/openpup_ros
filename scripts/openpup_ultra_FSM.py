@@ -177,23 +177,23 @@ class ultra_FSM():
 
 		# Block 2
 
-		self.A = self.Ready and (self.joy[0] == 0) and (self.joy[1] == 0)
+		self.A = self.Ready and not (self.joy[0] == 1) and not (self.joy[1] == 1)
 		self.B = self.Ready and (self.joy[0] == 1)
-		self.C = self.Wait and (self.joy[1] == 0) and not self.T0
+		self.C = self.Wait and not (self.joy[1] == 1) and not self.T0
 		self.D = self.Wait and self.T0 and not self.Dst
-		self.E = self.Forward and (self.joy[1] == 0) and not self.Dst
+		self.E = self.Forward and not (self.joy[1] == 1) and not self.Dst
 		self.F = self.Forward and self.Dst
 		self.G = self.Wait and self.T0 and self.Dst
 		self.H = self.Strafe and self.T1 and not self.Dst
-		self.I = self.Strafe and (self.joy[1] == 0) and not self.T1
+		self.I = self.Strafe and not (self.joy[1] == 1) and not self.T1
 		self.J = self.Strafe and self.Dst and self.T1
-		self.K = self.Turn and (self.joy[1] == 0) and not T2
+		self.K = self.Turn and not (self.joy[1] == 1) and not T2
 		self.L = self.Turn and self.T2
 		self.M = self.Turn and (self.joy[1] == 1)
 		self.N = self.Wait and (self.joy[1] == 1)
 		self.O = self.Forward and (self.joy[1] == 1)
 		self.P = self.Strafe and (self.joy[1] == 1)
-		self.Q = self.Stop and (self.joy[2] == 0)
+		self.Q = self.Stop and not (self.joy[2] == 1)
 		self.R = self.Stop and (self.joy[2] == 1)
 		self.S = self.Ready and (self.joy[1] == 1)
 
@@ -233,6 +233,8 @@ class ultra_FSM():
 
 		self.ultrasonic_value = data.data
 		self.Dst = (self.ultrasonic_value <= self.threshhold_dist)
+
+		rospy.logwarn(self.Dst)
 
 
 # main function
