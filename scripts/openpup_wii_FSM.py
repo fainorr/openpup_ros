@@ -19,6 +19,8 @@ import servo_angles
 class wii_FSM():
 	def __init__(self):
 
+		rospy.logwarn("started FSM")
+
 		self.dT = 0.005;
 		self.timenow = time.time()
 		self.oldtime = self.timenow
