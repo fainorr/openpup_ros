@@ -187,7 +187,7 @@ class ultra_FSM():
 		self.H = self.Strafe and self.T1 and not self.Dst
 		self.I = self.Strafe and not (self.joy[1] == 1) and not self.T1
 		self.J = self.Strafe and self.Dst and self.T1
-		self.K = self.Turn and not (self.joy[1] == 1) and not T2
+		self.K = self.Turn and not (self.joy[1] == 1) and not self.T2
 		self.L = self.Turn and self.T2
 		self.M = self.Turn and (self.joy[1] == 1)
 		self.N = self.Wait and (self.joy[1] == 1)
@@ -225,6 +225,8 @@ class ultra_FSM():
 		self.FSM_action.publish(self.action)
 		self.FSM_direction.publish(self.direction)
 
+		rospy.logwarn(self.Dst)
+
 	def wiimotecallback(self,data):
 
 		self.joy = data.buttons
@@ -233,8 +235,6 @@ class ultra_FSM():
 
 		self.ultrasonic_value = data.data
 		self.Dst = (self.ultrasonic_value <= self.threshhold_dist)
-
-		rospy.logwarn(self.Dst)
 
 
 # main function
