@@ -18,6 +18,8 @@ class servoPublisher():
 
 	def __init__(self):
 
+		rospy.logwarn("started servo controller")
+
 		self.dT = 0.005;
 		self.timenow = time.time()
 		self.oldtime = self.timenow
