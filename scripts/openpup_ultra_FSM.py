@@ -225,7 +225,6 @@ class ultra_FSM():
 		self.FSM_action.publish(self.action)
 		self.FSM_direction.publish(self.direction)
 
-
 	def wiimotecallback(self,data):
 
 		self.joy = data.buttons
