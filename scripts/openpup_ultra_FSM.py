@@ -17,7 +17,7 @@ class ultra_FSM():
 
 		self.threshhold_dist = 20.0
 		self.ultrasonic_value = 30.0
-		self.Dst = false
+		self.Dst = False
 
 		self.dT = 0.005;
 		self.timenow = time.time()
