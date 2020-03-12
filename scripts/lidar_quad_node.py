@@ -45,7 +45,7 @@ class lidar_quad():
 		self.timenow = time.time()
 		self.oldtime = self.timenow
 
-		self.action,self.direction = self.analyze.lidar_compare(self.distances, self.angles, self.obst_size, self.safe_range)
+		self.action, self.direction = self.analyze.find_optimal_action(self.distances, self.angles, self.obst_size, self.safe_range)
 
 		self.FSM_action.publish(self.action)
 		self.FSM_direction.publish(self.direction)
