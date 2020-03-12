@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 
 # LIDAR ANALYSIS NODE
-# breaks scan into four quadrants
-# checks for obst_size (number of consecutive dots) within safe_range
-# passes array of booleans (true if obstacle exists) [front, right, back, left]
 
 import roslib
 import rospy
@@ -30,7 +27,7 @@ class lidar_quad():
 		self.distances = zeros(360)
 		self.angles = zeros(360)
 
-		self.action_finder = lidar_compare.find_optimal_action()
+		self.analyze = lidar_compare.lidar_compare()
 
 		# subscribe to rplidar node
 		self.lidar_subscriber = rospy.Subscriber('/scan', LaserScan, self.scancallback)
@@ -48,7 +45,7 @@ class lidar_quad():
 		self.timenow = time.time()
 		self.oldtime = self.timenow
 
-		self.action,self.direction = self.action_finder(self.distances, self.angles, self.obst_size, self.safe_range)
+		self.action,self.direction = self.analyze.lidar_compare(self.distances, self.angles, self.obst_size, self.safe_range)
 
 		self.FSM_action.publish(self.action)
 		self.FSM_direction.publish(self.direction)
