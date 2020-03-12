@@ -10,7 +10,7 @@ from numpy import *
 class lidar_compare():
 
 	def __init__(self):
-		
+
 		action = "stand"
 		direction = "left"
 
@@ -79,7 +79,7 @@ class lidar_compare():
 			for i in range(90*quad, 90*(quad+1)):
 				if in_range[i] == 1: quad_points[quad] = quad_points[quad] + 1
 
-		obst_percent = quad_points/sum(quad_points)*100
+		obst_percent = quad_points/sum(quad_points)
 
 
 		# METHOD = "INTENSITY"
@@ -100,7 +100,7 @@ class lidar_compare():
 		total_obst_intensity = sum(obst_intensity)
 
 		for quad in range(0,4):
-			obst_intensity[quad] = obst_intensity[quad]/total_obst_intensity*100
+			obst_intensity[quad] = obst_intensity[quad]/total_obst_intensity
 
 
 		# FINDING ACTION AND DIRECTION
