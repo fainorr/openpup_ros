@@ -99,4 +99,27 @@ class lidar_compare():
             obst_intensity[quad] = obst_intensity[quad]/total_obst_intensity*100
 
 
+        # FINDING ACTION AND DIRECTION
+
+        if quad_obstacles[3] == 0:
+            action = "forward"
+            direction = "left"
+
+        elif quad_obstacles[3] == 1:
+
+            if quad_obstacles[0] == 0 and quad_obstacles[2] == 1: # left = 0, right = 1
+                action = "turn"
+                direction = "left"
+            elif quad_obstacles[0] == 1 and quad_obstacles[2] == 0: # left = 1, right = 0
+                action = "turn"
+                direction = "right"
+
+            else:
+                if obst_intensity[0] < obst_intensity[2]:
+                    action = "turn"
+                    direction = "left"
+                if obst_intensity[0] >= obst_intensity[2]:
+                    action = "turn"
+                    direction = "right"
+
         return action, direction
