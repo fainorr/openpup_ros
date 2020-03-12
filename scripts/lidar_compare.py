@@ -10,11 +10,14 @@ from numpy import *
 class lidar_compare():
 
 	def __init__(self):
-
-		action = "forward"
+		
+		action = "stand"
 		direction = "left"
 
 	def find_optimal_action(self, r_pos, angle_parameters, obst_size, safe_range):
+
+		action = "stand"
+		direction = "left"
 
 		# create angles vector
 		angles = zeros(len(r_pos))
