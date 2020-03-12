@@ -11,7 +11,8 @@ class lidar_compare():
 
 	def __init__(self):
 
-		self.find_optimal_action(zeros(360), zeros(360), 1, 1)
+		action = "forward"
+		direction = "left"
 
 	def find_optimal_action(self, r_pos, angle_parameters, obst_size, safe_range):
 
