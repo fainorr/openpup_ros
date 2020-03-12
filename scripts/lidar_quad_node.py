@@ -27,6 +27,9 @@ class lidar_quad():
 		self.distances = zeros(360)
 		self.angles = zeros(360)
 
+		self.old_action = "stand"
+		self.old_direction = "left"
+
 		self.analyze = lidar_compare.lidar_compare()
 
 		# subscribe to rplidar node
