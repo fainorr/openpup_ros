@@ -38,12 +38,12 @@ class lidar_quad():
 		# publish array of booleans if an obstacle exists in each quadrant
 		self.FSM_action = rospy.Publisher('/action', String, queue_size=1)
 		self.FSM_direction = rospy.Publisher('/direction', String, queue_size=1)
-		
+
 		# create loop
 		rospy.Timer(rospy.Duration(self.dT), self.loop, oneshot=False)
 
 
-	def loop(self, event)
+	def loop(self, event):
 
 		self.timenow = time.time()
 		self.oldtime = self.timenow
