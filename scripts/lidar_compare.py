@@ -14,7 +14,7 @@ class lidar_compare():
 		action = "stand"
 		direction = "left"
 
-	def find_optimal_action(self, r_pos, angle_parameters, obst_size, safe_range):
+	def find_optimal_action(self, r_pos, angle_parameters, obst_size, safe_range, old_commands):
 
 		action = "stand"
 		direction = "left"
@@ -100,7 +100,10 @@ class lidar_compare():
 		total_obst_intensity = sum(obst_intensity)
 
 		for quad in range(0,4):
-			obst_intensity[quad] = obst_intensity[quad]/total_obst_intensity
+			if total_obst_intensity == 0:
+				obst_intensity[quad] = 0.0
+			else:
+				obst_intensity[quad] = obst_intensity[quad]/total_obst_intensity
 
 
 		# FINDING ACTION AND DIRECTION
@@ -120,10 +123,18 @@ class lidar_compare():
 
 			else:
 				if obst_intensity[0] < obst_intensity[2]:
-					action = "turn"
-					direction = "left"
-				if obst_intensity[0] >= obst_intensity[2]:
-					action = "turn"
-					direction = "right"
+					if old_commands[1] == "left":
+						action = "turn"
+						direction = "left"
+					elif old_commands[1] == "right":
+						action = "turn"
+						direction = "right"
+				if (obst_intensity[0] >= obst_intensity[2]) && :
+					if old_commands[1] == "right":
+						action = "turn"
+						direction = "right"
+					elif old_commands[1] == "left":
+						action = "turn"
+						direction = "left"
 
 		return action, direction

@@ -31,6 +31,8 @@ class lidar_quad():
 
 		# subscribe to rplidar node
 		self.lidar_subscriber = rospy.Subscriber('/scan', LaserScan, self.scancallback)
+		self.FSM_action = rospy.Subscriber('/action', String, self.actioncallback)
+		self.FSM_direction = rospy.Subscriber('/direction', String, self.directioncallback)
 
 		# publish array of booleans if an obstacle exists in each quadrant
 		self.FSM_action = rospy.Publisher('/action', String, queue_size=1)
@@ -45,7 +47,8 @@ class lidar_quad():
 		self.timenow = time.time()
 		self.oldtime = self.timenow
 
-		self.action, self.direction = self.analyze.find_optimal_action(self.distances, self.angles, self.obst_size, self.safe_range)
+		self.command_history = [self.old_action, self.old_direction]
+		self.action, self.direction = self.analyze.find_optimal_action(self.distances, self.angles, self.obst_size, self.safe_range, self.command_history)
 
 		self.FSM_action.publish(self.action)
 		self.FSM_direction.publish(self.direction)
@@ -55,6 +58,14 @@ class lidar_quad():
 
 		self.distances = array(data.ranges)
 		self.angles = arange(data.angle_min, data.angle_max, data.angle_increment)
+
+	def actioncallback(self,data):
+
+		self.old_action = data.data
+
+	def directioncallback(self,data):
+
+		self.old_direction = data.data
 
 
 # main function
