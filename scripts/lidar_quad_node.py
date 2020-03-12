@@ -64,7 +64,7 @@ class lidar_quad():
 
 def main(args):
 	rospy.init_node('lidar_quad_node', anonymous=True)
-	myNode = lidar()
+	myNode = lidar_quad()
 
 	try:
 		rospy.spin()
