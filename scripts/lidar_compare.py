@@ -129,7 +129,7 @@ class lidar_compare():
 					elif old_commands[1] == "right":
 						action = "turn"
 						direction = "right"
-				if (obst_intensity[0] >= obst_intensity[2]) && :
+				if obst_intensity[0] >= obst_intensity[2]:
 					if old_commands[1] == "right":
 						action = "turn"
 						direction = "right"
