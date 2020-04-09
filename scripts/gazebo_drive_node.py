@@ -28,39 +28,39 @@ class gazebo_drive():
 
 	def loop(self, event):
 
-        if self.action == "stand":
-            self.twist.linear.x = 0.0;
-            self.twist.linear.y = 0.0;
-            self.twist.linear.z = 0.0;
-            self.twist.angular.x = 0.0;
-            self.twist.angular.y = 0.0;
-            self.twist.angular.z = 0.0;
+		if self.action == "stand":
+			self.twist.linear.x = 0.0;
+			self.twist.linear.y = 0.0;
+			self.twist.linear.z = 0.0;
+			self.twist.angular.x = 0.0;
+			self.twist.angular.y = 0.0;
+			self.twist.angular.z = 0.0;
 
-        if self.action == "forward":
-            self.twist.linear.x = 0.2;
-            self.twist.linear.y = 0.0;
-            self.twist.linear.z = 0.0;
-            self.twist.angular.x = 0.0;
-            self.twist.angular.y = 0.0;
-            self.twist.angular.z = 0.0;
+		if self.action == "forward":
+			self.twist.linear.x = 0.2;
+			self.twist.linear.y = 0.0;
+			self.twist.linear.z = 0.0;
+			self.twist.angular.x = 0.0;
+			self.twist.angular.y = 0.0;
+			self.twist.angular.z = 0.0;
 
-        if self.action == "turn":
-            if self.direction == "left":
-                self.twist.linear.x = 0.0;
-                self.twist.linear.y = 0.0;
-                self.twist.linear.z = 0.0;
-                self.twist.angular.x = 0.0;
-                self.twist.angular.y = 0.0;
-                self.twist.angular.z = pi/8.0;
-            else:
-                self.twist.linear.x = 0.0;
-                self.twist.linear.y = 0.0;
-                self.twist.linear.z = 0.0;
-                self.twist.angular.x = 0.0;
-                self.twist.angular.y = 0.0;
-                self.twist.angular.z = -pi/8.0;
+		if self.action == "turn":
+			if self.direction == "left":
+				self.twist.linear.x = 0.0;
+				self.twist.linear.y = 0.0;
+				self.twist.linear.z = 0.0;
+				self.twist.angular.x = 0.0;
+				self.twist.angular.y = 0.0;
+				self.twist.angular.z = pi/8.0;
+			else:
+				self.twist.linear.x = 0.0;
+				self.twist.linear.y = 0.0;
+				self.twist.linear.z = 0.0;
+				self.twist.angular.x = 0.0;
+				self.twist.angular.y = 0.0;
+				self.twist.angular.z = -pi/8.0;
 
-        self.robot_velocity.publish(self.twist)
+		self.robot_velocity.publish(self.twist)
 
 
 	def actioncallback(self,data):
