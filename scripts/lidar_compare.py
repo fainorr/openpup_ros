@@ -79,7 +79,10 @@ class lidar_compare():
 			for i in range(90*quad, 90*(quad+1)):
 				if in_range[i] == 1: quad_points[quad] = quad_points[quad] + 1
 
-		obst_percent = quad_points/sum(quad_points)
+		if sum(quad_points) == 0:
+			obst_percent = 0
+		else:
+			obst_percent = quad_points/sum(quad_points)
 
 
 		# METHOD = "INTENSITY"
