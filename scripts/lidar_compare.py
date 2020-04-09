@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
 from numpy import *
+import rospy
+import roslib
 # from matplotlib.pyplot import *
 
 # -----------------------
