@@ -54,6 +54,7 @@ class lidar_compare():
 			if distances[i] > safe_range: in_range[i] = 0
 			else: in_range[i] = 1
 
+		rospy.logwarn(distances)
 
 		# METHOD = "QUADRANT"
 
