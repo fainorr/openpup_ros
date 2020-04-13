@@ -52,9 +52,12 @@ class lidar_quad():
 
 		self.command_history = [self.old_action, self.old_direction]
 		self.action, self.direction = self.analyze.find_optimal_action(self.distances, self.angles, self.obst_size, self.safe_range, self.command_history)
-
-		self.FSM_action.publish(self.action)
-		self.FSM_direction.publish(self.direction)
+		self.action_msg = String()
+		self.action_msg.data = self.action
+		self.direction_msg = String()
+		self.direction_msg.data = self.direction
+		self.FSM_action.publish(self.action_msg)
+		self.FSM_direction.publish(self.direction_msg)
 
 
 	def scancallback(self,data):
