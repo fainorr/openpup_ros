@@ -15,7 +15,7 @@ class gazebo_drive():
 
 	def __init__(self):
 
-		self.dT = 1.0;
+		self.dT = 0.2;
 		self.timenow = time.time()
 		self.oldtime = self.timenow
 
@@ -26,9 +26,12 @@ class gazebo_drive():
 		self.FSM_direction = rospy.Subscriber('/direction', String, self.directioncallback)
 
 		self.robot_velocity = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
+
+		# create loop
 		rospy.Timer(rospy.Duration(self.dT), self.loop, oneshot=False)
 
 	def loop(self, event):
+
 		self.twist = Twist()
 		if self.action == "stand":
 			self.twist.linear.x = 0.0;
