@@ -22,10 +22,10 @@ class arm_controller():
 		self.dT = 0.005;
 		self.timenow = time.time()    # current time
 		self.starttime = time.time()  # start time of arm movement after recognizing button
+		self.time_elapsed = 0.0
 
 		self.IK = arm_IK.arm_IK()
 		self.arm_angles = arm_angles.convert_angles()
-
 
 		# subscribe to action and button location
 		self.action_subscriber = rospy.Subscriber('/arm_action', String, self.actioncallback)
@@ -37,9 +37,11 @@ class arm_controller():
 		self.joint3_angle = rospy.Publisher('/openArm/joint3_position_controller/command', Float64, queue_size=1)
 		self.joint4_angle = rospy.Publisher('/openArm/joint4_position_controller/command', Float64, queue_size=1)
 
+		self.arm_action = 'rest'
+		self.button_xyz = [0.0,0.0,0.0]
+
 		# create loop
 		rospy.Timer(rospy.Duration(self.dT), self.loop, oneshot=False)
-		self.arm_action = 'rest'
 
 
 	def loop(self, event):
@@ -51,10 +53,11 @@ class arm_controller():
 		self.arm_ang4 = Float64()
 
 		self.timenow = time.time()
-		self.time_elapsed = self.timenow-self.starttime
+		self.time_elapsed = self.timenow - self.starttime
 
 		# find angles based on IK coordinate frame
-		IK_angles = self.IK.joint_angles(self.action, self.direction, self.time_elapsed)
+
+		IK_angles = self.IK.joint_angles(self.arm_action, self.button_xyz, self.time_elapsed)
 
 		# convert angles to arm controller coordinate frame
 		self.arm_ang1, self.arm_ang2, self.arm_ang3, self.arm_ang4 = self.arm_angles.get_arm_angles(IK_angles)

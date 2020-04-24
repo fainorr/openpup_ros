@@ -19,11 +19,11 @@ class arm_IK():
 		self.time_constant = 2.5 # in seconds
 
 		# end-effector start location
-		self.x_start = L3+L2-L1
+		self.x_start = self.L3+self.L2-self.L1
 		self.y_start = 0.0
 		self.z_start = 0.0
 
-		self.find_xyz('rest', 0)
+		self.find_xyz('rest', [self.x_start, self.y_start, self.z_start], 0)
 
 
 	# sets desired xyz of the pointer based on requested arm action (rest, press)
@@ -59,12 +59,17 @@ class arm_IK():
 				self.y = self.y_final
 				self.z = self.z_final
 
-			return self.x, self.y, self.z
-
 
 	def joint_angles(self, action, button_xyz, time):
 
-		x, y, z = self.find_xyz(action, button_xyz, time)
+		self.find_xyz(action, button_xyz, time)
+
+		self.A1, self.A2, self.A3, self.A4 = self.getJointAng(self.x, self.y, self.z)
+
+		return [self.A1, self.A2, self.A3, self.A4]
+
+
+	def getJointAng(self, x, y, z):
 
 		d_xy = sqrt(x**2 + y**2)
 		xp = d_xy
@@ -88,4 +93,4 @@ class arm_IK():
 		# wrist angle (constrained so the end link is parallel with the ground)
 		A4 = 2*pi - A2 - A3
 
-		return [A1, A2, A3, A4]
+		return A1, A2, A3, A4
