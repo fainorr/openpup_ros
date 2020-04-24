@@ -16,7 +16,7 @@ class arm_IK():
 		self.L2 = 20.0 	# middle piece, inches
 		self.L3 = 5.0 	# end/tip, inches
 
-		self.time_constant = 1 # in seconds
+		self.time_constant = 2.5 # in seconds
 
 		# end-effector start location
 		self.x_start = L3+L2-L1
