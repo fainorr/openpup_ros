@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 from numpy import *
-# from matplotlib.pyplot import *
 
 # -----------------------
 # INVERSE KINEMATICS: 3-D

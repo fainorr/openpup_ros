@@ -3,11 +3,10 @@
 from numpy import *
 import rospy
 import roslib
-# from matplotlib.pyplot import *
 
-# -----------------------
+# -------------
 # LIDAR COMPARE
-# -----------------------
+# -------------
 
 class lidar_compare():
 
