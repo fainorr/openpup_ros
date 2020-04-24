@@ -12,9 +12,9 @@ class arm_IK():
 
 		# arm dimensions
 
-		self.L1 = 16.0 	# piece connected to base, inches
-		self.L2 = 20.0 	# middle piece, inches
-		self.L3 = 5.0 	# end/tip, inches
+		self.L1 = 0.432 	# piece connected to base, inches
+		self.L2 = 0.540 	# middle piece, inches
+		self.L3 = 0.126 	# end/tip, inches
 
 		self.time_constant = 2.5 # in seconds
 
