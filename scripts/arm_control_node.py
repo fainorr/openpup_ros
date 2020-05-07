@@ -37,7 +37,7 @@ class arm_controller():
 		self.joint3_angle = rospy.Publisher('/openArm/joint3_position_controller/command', Float64, queue_size=1)
 		self.joint4_angle = rospy.Publisher('/openArm/joint4_position_controller/command', Float64, queue_size=1)
 
-		self.old_arm_action = 'rest'
+		self.old_arm_action = 'press'
 		self.arm_action = 'rest'
 		self.button_xyz = [0.0,0.0,0.0]
 		self.button_data = [0.0,0.0,0.0]
@@ -59,6 +59,7 @@ class arm_controller():
 
 		if self.old_arm_action != self.arm_action:
 			self.button_xyz = self.button_data
+			self.old_arm_action = self.arm_action
 
 		# find angles based on IK coordinate frame
 		IK_angles = self.IK.joint_angles(self.arm_action, self.button_xyz, self.time_elapsed)
