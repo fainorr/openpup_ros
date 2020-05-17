@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-# VOICE RECOGNITION FINITE STATE MACINE NODE
-
 import roslib
 import rospy
 roslib.load_manifest('openpup_ros')
@@ -10,6 +8,12 @@ from numpy import *
 import time
 
 import inverse_kinematics
+
+# -------------------------
+# FINITE STATE MACHINE NODE -- voice control
+# -------------------------
+
+# this finite state machine controls the pup using inputs from the microphone
 
 class voice_FSM():
 	def __init__(self):
@@ -20,14 +24,14 @@ class voice_FSM():
 
 		self.timenow = rospy.Time.now()
 
-		# set up your publishers with appropriate topics
-
+		# subscribe to microphone
 		self.micsub = rospy.Subscriber("/mic_output", String, self.mic_callback)
 
+		# publish the action and direction
 		self.FSM_action = rospy.Publisher('/action', String, queue_size=1)
 		self.FSM_direction = rospy.Publisher('/direction', String, queue_size=1)
 
-		#creat loop
+		# create loop
 		rospy.Timer(rospy.Duration(self.dT), self.loop, oneshot=False)
 
 		self.mic_string = 'stop'
@@ -52,22 +56,24 @@ class voice_FSM():
 
 	def loop(self, event):
 
+		# --- Block 1 ---
+
 		# returns booleans if one of the key words is heard
 
 		self.dance_command = ('swivel' in self.mic_string) or \
-		 				     ('dance' in self.mic_string) or \
-					 		 ('little' in self.mic_string)
+							 ('dance' in self.mic_string) or \
+							 ('little' in self.mic_string)
 
 		self.down_command = ('down' in self.mic_string) or \
 							('sit' in self.mic_string) or \
-					 		('say it' in self.mic_string)
+							('say it' in self.mic_string)
 
 		self.stop_command = ('stop' in self.mic_string) or \
 							('ready' in self.mic_string) or \
-					 		('stand' in self.mic_string) or \
-					 		('not' in self.mic_string)
+							('stand' in self.mic_string) or \
+							('not' in self.mic_string)
 
-		# Block 2
+		# --- Block 2 ---
 
 		self.A = self.Ready and not (self.dance_command or self.down_command)
 		self.B = self.Ready and self.dance_command
@@ -79,13 +85,15 @@ class voice_FSM():
 		self.H = self.Sit and self.dance_command
 		self.I = self.Sit and self.stop_command
 
-		# Block 3
+
+		# --- Block 3 ---
 
 		self.Ready = self.A or self.E or self.I
 		self.Dance = self.B or self.D or self.H
 		self.Sit = self.C or self.F or self.G
 
-		# Block 4
+
+		# --- Block 4 ---
 
 		if self.Ready:
 			self.action = "stand"

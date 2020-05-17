@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-# SERVO ANGLES
-
 from __future__ import division
 import Adafruit_PCA9685
 
@@ -9,13 +7,24 @@ from numpy import *
 from math import *
 import time
 
+# ------------
+# SERVO ANGLES
+# ------------
+
+# this function receives the IK joint angles, converts them to servo angles,
+# and sends the correct pulse to the servo control board.
+
 pwm = Adafruit_PCA9685.PCA9685()
 zero = 0
-
 
 class servo_angles():
 
 	def __init__(self):
+
+		# define offsets such that sending the servos to these offsets achieves
+		# all angles of zero based on the defined coordinate frame; these are
+		# relevant only to the specific orientation the servos were mounted
+		# when assembling the pup and will change if the pup were re-assembled
 
 		self.tib1_offset = 1800
 		self.fem1_offset = 1720
@@ -54,7 +63,9 @@ class servo_angles():
 		if self.angf1 > 0: self.angf1 = self.angf1 - 2*pi
 		if self.angf3 > 0: self.angf3 = self.angf3 - 2*pi
 
-		# convert to servo angles
+
+		# convert to servo angles: for the pup's servos, there are roughly
+		# 800 +- 40 counts per 90 degrees of rotation
 
 		self.sangf1 = (840*self.angf1)/(pi/2)
 		self.sangt1 = (800*self.angt1)/(pi/2)
@@ -73,7 +84,8 @@ class servo_angles():
 		self.sangs4 = (760*self.angs4)/(pi/2)
 
 
-		# sending the servo angles to indivial servos
+		# send the servo angles to indivial servos via their appropriate
+		# pins on the servo control board
 
 		pwm.set_pwm(0, 0, self.tib2_offset + int(self.sangt2))		#port 0: right front tibia
 		pwm.set_pwm(1, 0, self.fem2_offset + int(self.sangf2))		#port 1: right front femur
@@ -82,8 +94,6 @@ class servo_angles():
 		pwm.set_pwm(3, 0, self.tib1_offset + int(self.sangt1))		#port 3: left front tibia
 		pwm.set_pwm(4, 0, self.fem1_offset + int(self.sangf1))		#port 4: left front femur
 		pwm.set_pwm(5, 0, self.sh1_offset - int(self.sangs1))		#port 5: left front hip
-
-		# time.sleep(0.01)
 
 		pwm.set_pwm(8, 0, self.fem3_offset + int(self.sangf3))		#port 8: left back femur
 		pwm.set_pwm(9, 0, self.tib3_offset + int(self.sangt3))		#port 9: left back tibia

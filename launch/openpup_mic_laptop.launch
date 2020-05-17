@@ -1,5 +1,4 @@
 <launch>
-
+  <!-- to be launched on the brownlab computer -->
   <node pkg="openpup_ros" type="mic_node.py" name="mic_reader"/>
-
 </launch>

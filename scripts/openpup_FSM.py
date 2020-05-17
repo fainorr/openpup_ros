@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-# FINITE STATE MACHINE NODE
-
 import roslib
 import rospy
 roslib.load_manifest('openpup_ros')
@@ -13,6 +11,11 @@ import time
 import inverse_kinematics
 import servo_angles
 
+# -------------------------
+# FINITE STATE MACHINE NODE -- sensor-less robot
+# -------------------------
+
+# this finite state machine controls the pup without the use of any sensors
 
 class FSM():
 	def __init__(self):
@@ -23,8 +26,7 @@ class FSM():
 
 		self.timenow = rospy.Time.now()
 
-		# set up your publishers with appropriate topic types
-
+		# publish the action and direction
 		self.FSM_action = rospy.Publisher('/action', String, self.actioncallback)
 		self.FSM_direction = rospy.Publisher('/direction', String, self.directioncallback)
 
@@ -83,12 +85,14 @@ class FSM():
 
 	def loop(self, event):
 
-		# Block 1
+		# FSM blocks using timers as transitions
+
+		# --- Block 1 ---
 
 		self.T0_EN = self.Wait or self.Back or self.TRight or self.SLeft
 		self.T1_EN = self.Forward or self.TLeft or self.SRight
 
-		# --------------------TIMER_0--------------------
+		# TIMER 0
 		self.A_time0 = self.wait_time0 and self.T0_EN
 		self.B_time0 = self.wait_time0 and not self.T0_EN
 		self.C_time0 = self.timing_time0 and not self.T0_EN
@@ -107,9 +111,8 @@ class FSM():
 			self.delta_t0 = 0
 
 		self.T0 = self.delta_t0 > 5
-		#-----------------------------------------------
 
-		#--------------------TIMER_1--------------------
+		# TIMER 1
 		self.A_time1 = self.wait_time1 and self.T1_EN
 		self.B_time1 = self.wait_time1 and not self.T1_EN
 		self.C_time1 = self.timing_time1 and not self.T1_EN
@@ -128,9 +131,9 @@ class FSM():
 			self.delta_t1 = 0
 
 		self.T1 = self.delta_t1 > 5
-		#-----------------------------------------------
 
-		# Block 2
+
+		# --- Block 2 ---
 
 		self.A = self.Wait and not self.T0
 		self.B = self.Wait and self.T0
@@ -147,7 +150,8 @@ class FSM():
 		self.M = self.SLeft and not self.T0
 		self.N = self.SLeft and self.T0
 
-		# Block 3
+
+		# --- Block 3 ---
 
 		self.Wait = self.A or self.N
 		self.Forward = self.B or self.C
@@ -158,7 +162,7 @@ class FSM():
 		self.SLeft = self.L or self.M
 
 
-		# Block 4
+		# --- Block 4 ---
 
 		if self.Forward:
 			self.action = "forward"

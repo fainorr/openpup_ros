@@ -10,11 +10,19 @@ from std_msgs.msg import *
 from numpy import *
 import time
 
+# -------------------------
+# FINITE STATE MACHINE NODE -- ultrasonic
+# -------------------------
+
+# this finite state machine controls the pup using inputs from the ultrasonic
+# sensor to test its ability to detect obstacles
+
 class ultra_FSM():
 	def __init__(self):
 
 		rospy.logwarn("started FSM")
 
+		# set threshhold distance in centimeters to trigger obstacle avoidance
 		self.threshhold_dist = 20.0
 		self.ultrasonic_value = 30.0
 		self.Dst = False
@@ -25,15 +33,15 @@ class ultra_FSM():
 
 		self.timenow = rospy.Time.now()
 
-		# set up your publishers with appropriate topics
-
+		# subscribe to wii remote and ultrasonic sensor
 		self.joy = rospy.Subscriber("/joy", Joy, self.wiimotecallback)
 		self.ultra_subscriber = rospy.Subscriber('/sonar_dist', Float32, self.ultracallback)
 
+		# publish the action and direction
 		self.FSM_action = rospy.Publisher('/action', String, queue_size=1)
 		self.FSM_direction = rospy.Publisher('/direction', String, queue_size=1)
 
-		#create loop
+		# create loop
 		rospy.Timer(rospy.Duration(self.dT), self.loop, oneshot=False)
 
 		self.joy = [0,0,   0,0,0,0,0]
@@ -106,13 +114,15 @@ class ultra_FSM():
 
 	def loop(self, event):
 
-		# Block 1
+		# FSM blocks
+
+		# --- Block 1 ---
 
 		self.T0_EN = self.Wait
 		self.T1_EN = self.Strafe
 		self.T2_EN = self.Turn
 
-		#--------------------TIMER_0--------------------
+		# TIMER 0
 		self.A_time0 = self.wait_time0 and self.T0_EN
 		self.B_time0 = self.wait_time0 and not self.T0_EN
 		self.C_time0 = self.timing_time0 and not self.T0_EN
@@ -131,9 +141,8 @@ class ultra_FSM():
 			self.delta_t0 = 0
 
 		self.T0 = self.delta_t0 > 1
-		#-----------------------------------------------
 
-		#--------------------TIMER_1--------------------
+		# TIMER 1
 		self.A_time1 = self.wait_time1 and self.T1_EN
 		self.B_time1 = self.wait_time1 and not self.T1_EN
 		self.C_time1 = self.timing_time1 and not self.T1_EN
@@ -152,9 +161,8 @@ class ultra_FSM():
 			self.delta_t1 = 0
 
 		self.T1 = self.delta_t1 > 5
-		#-----------------------------------------------
 
-		#--------------------TIMER_2--------------------
+		# TIMER 2
 		self.A_time2 = self.wait_time2 and self.T2_EN
 		self.B_time2 = self.wait_time2 and not self.T2_EN
 		self.C_time2 = self.timing_time2 and not self.T2_EN
@@ -173,9 +181,9 @@ class ultra_FSM():
 			self.delta_t2 = 0
 
 		self.T2 = self.delta_t2 > 5
-		#-----------------------------------------------
 
-		# Block 2
+
+		# --- Block 2 ---
 
 		self.A = self.Ready and not (self.joy[0] == 1) and not (self.joy[1] == 1)
 		self.B = self.Ready and (self.joy[0] == 1)
@@ -197,7 +205,8 @@ class ultra_FSM():
 		self.R = self.Stop and (self.joy[2] == 1)
 		self.S = self.Ready and (self.joy[1] == 1)
 
-		# Block 3
+
+		# --- Block 3 ---
 
 		self.Ready = self.A or self.R
 		self.Wait = self.B or self.C or self.H or self.L
@@ -206,7 +215,8 @@ class ultra_FSM():
 		self.Turn = self.J or self.K
 		self.Stop = self.M or self.N or self.O or self.P or self.Q or self.S
 
-		# Block 4
+
+		# --- Block 4 ---
 
 		if self.Forward:
 			self.action = "forward"

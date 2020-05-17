@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-# MICROPHONE READ NODE
-
 import roslib
 import rospy
 roslib.load_manifest('openpup_ros')
@@ -15,6 +13,13 @@ from pocketsphinx import *
 from sphinxbase import *
 
 import pyaudio
+
+# --------------------
+# MICROPHONE READ NODE
+# --------------------
+
+# this node reads the mic on the brownlab laptop using the pocketsphinx voice
+# recognition library
 
 def microphone():
 	pub = rospy.Publisher("/mic_output", String, queue_size=10)

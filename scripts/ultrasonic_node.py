@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-# ULTRASONIC
-
 import RPi.GPIO as gpio
 import time
 from numpy import *
@@ -13,10 +11,17 @@ import rospy
 import roslib
 roslib.load_manifest('openpup_ros')
 
+# ---------------
+# ULTRASONIC NODE
+# ---------------
+
+# this node reads the ultrasonic signal and calculates the distance based on
+# the time between sending and receiving a pulse
 
 def signal_handler(signal, frame): # ctrl + c -> exit program
 		print('You pressed Ctrl+C!')
 		sys.exit(0)
+
 signal.signal(signal.SIGINT, signal_handler)
 
 

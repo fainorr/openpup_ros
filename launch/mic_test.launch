@@ -1,6 +1,0 @@
-<launch>
-
-  <node pkg="openpup_ros" type="mic_node.py" name="microphone"/>
-	<node pkg="openpup_ros" type="openpup_voice_FSM.py" name="FSM"/>
-
-</launch>

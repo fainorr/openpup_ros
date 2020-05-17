@@ -6,6 +6,11 @@ from numpy import *
 # INVERSE KINEMATICS: 3-D
 # -----------------------
 
+# this class of functions defines the main functions for converting an action
+# into joint angles that the servos can use; it first defines the x, y, and z
+# positions of the feet based on the action and current time and then finds the
+# joint angles using the IK equations.
+
 class inverse_kinematics():
 
 	def __init__(self):
@@ -19,6 +24,8 @@ class inverse_kinematics():
 		self.find_xyz('stand', 'left', 0)
 
 	def find_xyz(self, action, direction, time):
+
+		# define the foot position equations for each action
 
 		self.t = time
 
@@ -227,10 +234,13 @@ class inverse_kinematics():
 			if (self.z3) < z_center: self.z3 = z_center
 			if (self.z4) < z_center: self.z4 = z_center
 
+
 	def JointAng(self, action, direction, time):
 
+		# call the foot position function
 		self.find_xyz(action, direction, time)
 
+		# for each leg, get the joint angles and return as vector
 		self.angs1, self.angf1, self.angt1 = self.getJointAng(self.x1, self.y1, self.z1, 1)
 		self.angs2, self.angf2, self.angt2 = self.getJointAng(self.x2, self.y2, self.z2, 2)
 		self.angs3, self.angf3, self.angt3 = self.getJointAng(self.x3, self.y3, self.z3, 3)
@@ -238,7 +248,11 @@ class inverse_kinematics():
 
 		return [self.angs1, self.angf1, self.angt1, self.angs2, self.angf2, self.angt2, self.angs3, self.angf3, self.angt3, self.angs4, self.angf4, self.angt4]
 
+
 	def getJointAng(self, x, y, z, leg):
+
+		# inverse kinematic equations, which solve for joint angles given
+		# instantaneous foot positions
 
 		if (y<0):
 			Adxy = arctan(z/y)
